@@ -12,6 +12,7 @@ export default defineConfig({
       "@assets": `${srcPath}/assets`,
       "@components": `${srcPath}/components`,
       "@layouts": `${srcPath}/layouts`,
+      "@api": `${srcPath}/state/api/reducer`,
     },
   },
   server: {
