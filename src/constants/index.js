@@ -4,6 +4,7 @@ import API from "./api";
 import ROLES from "./roles";
 import USER from "./user";
 import STATUS from "./status";
+import VARIANT from "./variant";
 
 export {
   TAGS,
@@ -12,4 +13,5 @@ export {
   ROLES,
   USER,
   STATUS,
+  VARIANT,
 };
