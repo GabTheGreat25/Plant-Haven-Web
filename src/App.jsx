@@ -21,6 +21,8 @@ import {
   EmployeeRegister,
   UpdateUserInfo,
   UpdateUserPassword,
+  ForgotPassword,
+  ResetPassword,
 } from "@/page";
 import { ProtectedRoute, UnprotectedRoute } from "@/components";
 
@@ -38,7 +40,7 @@ const router = createBrowserRouter(
           }
         />
         <Route
-          path="/login"
+          path="login"
           element={
             <UnprotectedRoute>
               <LoginUser />
@@ -46,7 +48,7 @@ const router = createBrowserRouter(
           }
         />
         <Route
-          path="/customerRegister"
+          path="customerRegister"
           element={
             <UnprotectedRoute>
               <CustomerRegister />
@@ -54,10 +56,26 @@ const router = createBrowserRouter(
           }
         />
         <Route
-          path="/employeeRegister"
+          path="employeeRegister"
           element={
             <UnprotectedRoute>
               <EmployeeRegister />
+            </UnprotectedRoute>
+          }
+        />
+        <Route
+          path="forgotPassword"
+          element={
+            <UnprotectedRoute>
+              <ForgotPassword />
+            </UnprotectedRoute>
+          }
+        />
+        <Route
+          path="resetPassword/:id"
+          element={
+            <UnprotectedRoute>
+              <ResetPassword />
             </UnprotectedRoute>
           }
         />
