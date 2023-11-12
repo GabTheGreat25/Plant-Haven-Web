@@ -39,6 +39,10 @@ export default function () {
     }
   };
 
+  const updateProfile = () => {
+    navigate("updateUserInfo");
+  };
+
   return (
     <>
       <div className="navbar">
@@ -94,8 +98,8 @@ export default function () {
             <li className="group-custom">
               <h1 className="text-base hover:text-secondary-variant capitalize">{`Welcome ${user?.name}!`}</h1>
             </li>
-            <li className="group-custom">
-              <a className="text-base justify- between group-custom-hover:text-secondary-variant">
+            <li className="group-custom" onClick={updateProfile}>
+              <a className="text-base justify-between group-custom-hover:text-secondary-variant">
                 Profile
                 <span className="group-custom-hover:bg-primary-default badge">
                   New
