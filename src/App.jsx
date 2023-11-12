@@ -14,8 +14,20 @@ import {
   EmployeeLayout,
   CustomerLayout,
 } from "@/layouts";
-import { Test, LoginUser, CustomerRegister, EmployeeRegister } from "@/page";
+import {
+  Test,
+  LoginUser,
+  CustomerRegister,
+  EmployeeRegister,
+  UpdateUserInfo,
+} from "@/page";
 import { ProtectedRoute, UnprotectedRoute } from "@/components";
+
+const commonProtectedRoute = (
+  <ProtectedRoute userRoles={["Admin", "Employee", "Customer"]}>
+    <UpdateUserInfo />
+  </ProtectedRoute>
+);
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -66,8 +78,8 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
+        <Route path="updateUserInfo" element={commonProtectedRoute} />
       </Route>
-
       {/* Employee Routes */}
       <Route path="employee" element={<EmployeeLayout />}>
         <Route
@@ -78,8 +90,8 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
+        <Route path="updateUserInfo" element={commonProtectedRoute} />
       </Route>
-
       {/* Customer Routes */}
       <Route path="customer" element={<CustomerLayout />}>
         <Route
@@ -90,8 +102,8 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
+        <Route path="updateUserInfo" element={commonProtectedRoute} />
       </Route>
-
       {/* 404 */}
       <Route path="*" element={<NotFound />} />
     </Route>
