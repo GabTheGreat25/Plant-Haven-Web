@@ -12,6 +12,7 @@ import editUserValidation from "./editUser";
 import forgotPasswordValidation from "./forgotPassword";
 import loginUserValidation from "./loginUser";
 import resetPasswordValidation from "./resetPassword";
+import updatePasswordValidation from "./updatePassword";
 
 export {
   createCommentValidation,
@@ -27,4 +28,5 @@ export {
   forgotPasswordValidation,
   loginUserValidation,
   resetPasswordValidation,
+  updatePasswordValidation,
 };
