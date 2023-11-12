@@ -5,6 +5,7 @@ import CustomerNavbar from "./Navbar/CustomerNavbar";
 import Footer from "./Footer";
 import ProtectedRoute from "./ProtectedRoute";
 import UnprotectedRoute from "./UnprotectedRoute";
+import ImagePreview from "./ImagePreview";
 
 export {
     Navbar,
@@ -13,5 +14,6 @@ export {
     UnprotectedRoute,
     AdminNavbar,
     EmployeeNavbar,
-    CustomerNavbar
+    CustomerNavbar,
+    ImagePreview,
 };
