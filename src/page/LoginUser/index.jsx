@@ -34,6 +34,8 @@ export default function () {
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
 
+  const handleForgotPassword = () => navigate(`/Forgotpassword`);
+
   return (
     <>
       {isLoading ? (
@@ -81,6 +83,9 @@ export default function () {
                 </div>
                 <button type="submit" disabled={!formik.isValid}>
                   Submit
+                </button>
+                <button type="button" onClick={handleForgotPassword}>
+                  Forgot Password
                 </button>
               </section>
             </form>
