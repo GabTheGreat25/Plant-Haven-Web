@@ -25,10 +25,6 @@ export default function () {
           autoClose: 3000,
         };
         if (response?.data?.success === true) {
-          const userRoles = response?.data?.user?.roles;
-          if (userRoles.includes("Admin")) {
-            navigate("/admin");
-          }
           toast.success(`${response?.data?.message}`, toastProps);
         } else
           toast.error(`${response?.error?.data?.error?.message}`, toastProps);
