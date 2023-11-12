@@ -4,6 +4,8 @@ import CustomerRegister from "./CustomerRegister";
 import EmployeeRegister from "./EmployeeRegister";
 import UpdateUserInfo from "./User/UpdateUserInfo";
 import UpdateUserPassword from "./User/UpdateUserPassword";
+import ForgotPassword from "./ForgotPassword";
+import ResetPassword from "./ResetPassword";
 
 export {
     LoginUser,
@@ -12,4 +14,6 @@ export {
     EmployeeRegister,
     UpdateUserInfo,
     UpdateUserPassword,
+    ForgotPassword,
+    ResetPassword,
 };
