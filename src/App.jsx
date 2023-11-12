@@ -19,6 +19,7 @@ import {
   LoginUser,
   CustomerRegister,
   EmployeeRegister,
+  User,
   UpdateUserInfo,
   UpdateUserPassword,
   ForgotPassword,
@@ -96,6 +97,14 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Admin", "Employee", "Customer"]}>
               <UpdateUserInfo />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="user"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <User />
             </ProtectedRoute>
           }
         />
