@@ -11,22 +11,57 @@ export default function () {
   };
 
   const navigate = useNavigate();
+
   const home = () => {
     navigate("/");
+  };
+
+  const login = () => {
+    navigate("/login");
   };
 
   return (
     <>
       <div className="navbar">
         <div className="flex-1">
-          <span
-            onClick={home}
-            className="grid items-end justify-start"
-          >
+          <span className="grid items-end justify-start" onClick={home}>
             <button className="text-xl normal-case btn btn-ghost hover:bg-dark-default hover:text-light-default hover:dark:bg-light-default hover:dark:text-dark-default">
               Plant Haven
             </button>
           </span>
+        </div>
+        <div class="flex justify-end flex-1 px-2">
+          <div class="flex items-stretch gap-x-3">
+            <a
+              class="btn btn-ghost rounded-btn capitalize text-lg hover:bg-dark-default hover:text-light-default hover:dark:bg-light-default hover:dark:text-dark-default"
+              onClick={login}
+            >
+              Log In
+            </a>
+            <div class="dropdown dropdown-end">
+              <label
+                tabindex="0"
+                class="btn btn-ghost rounded-btn capitalize text-lg hover:bg-dark-default hover:text-light-default hover:dark:bg-light-default hover:dark:text-dark-default"
+              >
+                Register
+              </label>
+              <ul
+                tabindex="0"
+                class="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4"
+              >
+                <li>
+                  <a className="text-base hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default">
+                    Customer Register
+                  </a>
+                </li>
+                <li>
+                  <a className="text-base hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default">
+                    Employee Register
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
         <div className="flex-none">
           <div className="grid items-center justify-center grid-flow-col-dense gap-4">
