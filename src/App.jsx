@@ -14,7 +14,7 @@ import {
   EmployeeLayout,
   CustomerLayout,
 } from "@/layouts";
-import { Test, LoginUser } from "@/page";
+import { Test, LoginUser, CustomerRegister, EmployeeRegister } from "@/page";
 import { ProtectedRoute, UnprotectedRoute } from "@/components";
 
 const router = createBrowserRouter(
@@ -35,6 +35,22 @@ const router = createBrowserRouter(
           element={
             <UnprotectedRoute>
               <LoginUser />
+            </UnprotectedRoute>
+          }
+        />
+        <Route
+          path="/customerRegister"
+          element={
+            <UnprotectedRoute>
+              <CustomerRegister />
+            </UnprotectedRoute>
+          }
+        />
+        <Route
+          path="/employeeRegister"
+          element={
+            <UnprotectedRoute>
+              <EmployeeRegister />
             </UnprotectedRoute>
           }
         />
