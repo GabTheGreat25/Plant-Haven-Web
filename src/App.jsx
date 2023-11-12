@@ -21,6 +21,7 @@ import {
   EmployeeRegister,
   User,
   UserGetById,
+  EditUser,
   UpdateUserInfo,
   UpdateUserPassword,
   ForgotPassword,
@@ -114,6 +115,14 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Admin"]}>
               <UserGetById />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="user/edit/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <EditUser />
             </ProtectedRoute>
           }
         />
