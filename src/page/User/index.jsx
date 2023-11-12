@@ -6,12 +6,10 @@ import { RingLoader } from "react-spinners";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-export default function YourComponent() {
+export default function () {
   const navigate = useNavigate();
   const { data, isLoading } = useGetUsersQuery();
-
   const [deleteUser, { isLoading: isDeleting }] = useDeleteUserMutation();
-
   const auth = useSelector((state) => state.auth);
 
   const filteredData = data?.details?.filter(
@@ -45,19 +43,22 @@ export default function YourComponent() {
         <main className="grid grid-flow-col gap-x-10 justify-center items-center h-screen">
           {filteredData.map((item) => (
             <div key={item?._id}>
+              <a className="cursor-pointer" onClick={() => navigate(`${item?._id}`)}>
+                <h1>{item?._id}</h1>
+              </a>
               <h1>{item?.name}</h1>
               <h1>{item?.email}</h1>
               <h1>{item?.roles}</h1>
-              <img
-                src={item?.image?.url}
-                alt={item?.image?.originalname}
-                key={item?.image?.public_id}
-              />
-              <button
-                onClick={() => handleDelete(item?._id)}
-              >
-                Delete
-              </button>
+              {item.image?.map((image) => (
+                <img
+                  width={75}
+                  height={60}
+                  src={image?.url}
+                  alt={image?.originalname}
+                  key={image?.public_id}
+                />
+              ))}
+              <button onClick={() => handleDelete(item?._id)}>Delete</button>
             </div>
           ))}
         </main>
