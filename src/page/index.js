@@ -2,6 +2,7 @@ import LoginUser from "./LoginUser";
 import Test from "./Test";
 import CustomerRegister from "./CustomerRegister";
 import EmployeeRegister from "./EmployeeRegister";
+import User from "./User";
 import UpdateUserInfo from "./User/UpdateUserInfo";
 import UpdateUserPassword from "./User/UpdateUserPassword";
 import ForgotPassword from "./ForgotPassword";
@@ -16,4 +17,5 @@ export {
     UpdateUserPassword,
     ForgotPassword,
     ResetPassword,
+    User,
 };
