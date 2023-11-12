@@ -43,6 +43,10 @@ export default function () {
     navigate("updateUserInfo");
   };
 
+  const updatePassword = () => {
+    navigate("updateUserPassword");
+  };
+
   return (
     <>
       <div className="navbar">
@@ -104,6 +108,14 @@ export default function () {
                 <span className="group-custom-hover:bg-primary-default badge">
                   New
                 </span>
+              </a>
+            </li>
+            <li className="group-custom">
+              <a
+                className="text-base hover:text-secondary-variant"
+                onClick={updatePassword}
+              >
+                Update Password
               </a>
             </li>
             <li className="group-custom">
