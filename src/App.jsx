@@ -20,14 +20,9 @@ import {
   CustomerRegister,
   EmployeeRegister,
   UpdateUserInfo,
+  UpdateUserPassword,
 } from "@/page";
 import { ProtectedRoute, UnprotectedRoute } from "@/components";
-
-const commonProtectedRoute = (
-  <ProtectedRoute userRoles={["Admin", "Employee", "Customer"]}>
-    <UpdateUserInfo />
-  </ProtectedRoute>
-);
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -78,7 +73,22 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-        <Route path="updateUserInfo" element={commonProtectedRoute} />
+        <Route
+          path="updateUserInfo"
+          element={
+            <ProtectedRoute userRoles={["Admin", "Employee", "Customer"]}>
+              <UpdateUserInfo />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="updateUserPassword"
+          element={
+            <ProtectedRoute userRoles={["Admin", "Employee", "Customer"]}>
+              <UpdateUserPassword />
+            </ProtectedRoute>
+          }
+        />
       </Route>
       {/* Employee Routes */}
       <Route path="employee" element={<EmployeeLayout />}>
@@ -90,7 +100,22 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-        <Route path="updateUserInfo" element={commonProtectedRoute} />
+        <Route
+          path="updateUserInfo"
+          element={
+            <ProtectedRoute userRoles={["Admin", "Employee", "Customer"]}>
+              <UpdateUserInfo />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="updateUserPassword"
+          element={
+            <ProtectedRoute userRoles={["Admin", "Employee", "Customer"]}>
+              <UpdateUserPassword />
+            </ProtectedRoute>
+          }
+        />
       </Route>
       {/* Customer Routes */}
       <Route path="customer" element={<CustomerLayout />}>
@@ -102,7 +127,22 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-        <Route path="updateUserInfo" element={commonProtectedRoute} />
+        <Route
+          path="updateUserInfo"
+          element={
+            <ProtectedRoute userRoles={["Admin", "Employee", "Customer"]}>
+              <UpdateUserInfo />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="updateUserPassword"
+          element={
+            <ProtectedRoute userRoles={["Admin", "Employee", "Customer"]}>
+              <UpdateUserPassword />
+            </ProtectedRoute>
+          }
+        />
       </Route>
       {/* 404 */}
       <Route path="*" element={<NotFound />} />
