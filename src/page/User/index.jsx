@@ -43,7 +43,10 @@ export default function () {
         <main className="grid grid-flow-col gap-x-10 justify-center items-center h-screen">
           {filteredData.map((item) => (
             <div key={item?._id}>
-              <a className="cursor-pointer" onClick={() => navigate(`${item?._id}`)}>
+              <a
+                className="cursor-pointer"
+                onClick={() => navigate(`${item?._id}`)}
+              >
                 <h1>{item?._id}</h1>
               </a>
               <h1>{item?.name}</h1>
@@ -58,7 +61,12 @@ export default function () {
                   key={image?.public_id}
                 />
               ))}
-              <button onClick={() => handleDelete(item?._id)}>Delete</button>
+              <span className="grid grid-flow-col gap-x-4 justify-start">
+                <button onClick={() => navigate(`edit/${item?._id}`)}>
+                  Edit
+                </button>
+                <button onClick={() => handleDelete(item?._id)}>Delete</button>
+              </span>
             </div>
           ))}
         </main>
