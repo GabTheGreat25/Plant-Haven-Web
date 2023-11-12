@@ -47,6 +47,10 @@ export default function () {
     navigate("updateUserPassword");
   };
 
+  const ShowUsers = () => {
+    navigate("user");
+  };
+
   return (
     <>
       <div className="navbar">
@@ -54,6 +58,27 @@ export default function () {
           <span className="grid items-end justify-start">
             <h1 className="text-xl font-semibold">Plant Haven</h1>
           </span>
+        </div>
+        <div className="dropdown dropdown-end">
+          <label
+            tabIndex="0"
+            className="btn btn-ghost rounded-btn capitalize text-lg hover:bg-dark-default hover:text-light-default hover:dark:bg-light-default hover:dark:text-dark-default"
+          >
+            Tables
+          </label>
+          <ul
+            tabIndex="0"
+            className="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4"
+          >
+            <li>
+              <a
+                className="text-base hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                onClick={ShowUsers}
+              >
+                Show Users
+              </a>
+            </li>
+          </ul>
         </div>
         <div className="flex-none">
           <div className="grid items-center justify-center grid-flow-col-dense gap-4">
