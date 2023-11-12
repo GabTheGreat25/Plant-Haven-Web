@@ -4,6 +4,7 @@ import CustomerRegister from "./CustomerRegister";
 import EmployeeRegister from "./EmployeeRegister";
 import User from "./User";
 import UserGetById from "./User/UserGetById";
+import EditUser from "./User/EditUser";
 import UpdateUserInfo from "./User/UpdateUserInfo";
 import UpdateUserPassword from "./User/UpdateUserPassword";
 import ForgotPassword from "./ForgotPassword";
@@ -20,4 +21,5 @@ export {
     ResetPassword,
     User,
     UserGetById,
+    EditUser,
 };
