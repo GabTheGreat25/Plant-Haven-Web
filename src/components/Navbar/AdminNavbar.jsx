@@ -51,6 +51,14 @@ export default function () {
     navigate("user");
   };
 
+  const ShowDeliveries = () => {
+    navigate("delivery");
+  };
+
+  const ShowProducts = () => {
+    navigate("product");
+  };
+
   return (
     <>
       <div className="navbar">
@@ -76,6 +84,22 @@ export default function () {
                 onClick={ShowUsers}
               >
                 Show Users
+              </a>
+            </li>
+            <li>
+              <a
+                className="text-base hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                onClick={ShowDeliveries}
+              >
+                Show Deliveries
+              </a>
+            </li>
+            <li>
+              <a
+                className="text-base hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                onClick={ShowProducts}
+              >
+                Show Products
               </a>
             </li>
           </ul>
