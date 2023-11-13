@@ -26,6 +26,14 @@ import {
   UpdateUserPassword,
   ForgotPassword,
   ResetPassword,
+  Delivery,
+  DeliveryGetById,
+  EditDelivery,
+  CreateDelivery,
+  Product,
+  ProductGetById,
+  EditProduct,
+  CreateProduct,
 } from "@/page";
 import { ProtectedRoute, UnprotectedRoute } from "@/components";
 
@@ -131,6 +139,70 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Admin", "Employee", "Customer"]}>
               <UpdateUserPassword />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="delivery"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <Delivery />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="delivery/create"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <CreateDelivery />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="delivery/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <DeliveryGetById />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="delivery/edit/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <EditDelivery />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="product"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <Product />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="product/create"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <CreateProduct />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="product/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <ProductGetById />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="product/edit/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <EditProduct />
             </ProtectedRoute>
           }
         />
