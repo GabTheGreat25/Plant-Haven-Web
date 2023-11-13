@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useGetUsersQuery, useDeleteUserMutation } from "@api";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

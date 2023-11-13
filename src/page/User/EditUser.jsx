@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { RingLoader } from "react-spinners";
 import { editUserValidation } from "@/validation";
-import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { ROLES } from "@/constants";
 
