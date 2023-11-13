@@ -9,6 +9,14 @@ import UpdateUserInfo from "./User/UpdateUserInfo";
 import UpdateUserPassword from "./User/UpdateUserPassword";
 import ForgotPassword from "./ForgotPassword";
 import ResetPassword from "./ResetPassword";
+import Delivery from "./Delivery";
+import DeliveryGetById from "./Delivery/DeliveryGetById";
+import EditDelivery from "./Delivery/EditDelivery";
+import CreateDelivery from "./Delivery/CreateDelivery";
+import Product from "./Product";
+import ProductGetById from "./Product/ProductGetById";
+import EditProduct from "./Product/EditProduct";
+import CreateProduct from "./Product/CreateProduct";
 
 export {
     LoginUser,
@@ -22,4 +30,12 @@ export {
     User,
     UserGetById,
     EditUser,
+    Delivery,
+    DeliveryGetById,
+    EditDelivery,
+    CreateDelivery,
+    Product,
+    ProductGetById,
+    EditProduct,
+    CreateProduct,
 };
