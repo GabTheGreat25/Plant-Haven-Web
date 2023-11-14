@@ -5,12 +5,14 @@ export default function CartPreview({
   cartItems,
   onRemoveFromCart,
   onConfirmPurchase,
+  onClose,
 }) {
   const [modalOpen, setModalOpen] = useState(false);
 
   const handleConfirmPurchase = () => {
     onConfirmPurchase();
     setModalOpen(false);
+    onClose();
   };
 
   return (
@@ -77,7 +79,10 @@ export default function CartPreview({
             <div className="flex justify-end">
               <button
                 className="text-red-500 mr-2"
-                onClick={() => setModalOpen(false)}
+                onClick={() => {
+                  setModalOpen(false);
+                  onClose();
+                }}
               >
                 Cancel
               </button>
