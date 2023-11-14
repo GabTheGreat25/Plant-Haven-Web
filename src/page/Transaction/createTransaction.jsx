@@ -9,6 +9,7 @@ export default function CreateTransaction() {
   const [cartItems, setCartItems] = useState([]);
   const [addTransaction] = useAddTransactionMutation();
   const auth = useSelector((state) => state.auth);
+  const [isCartPreviewOpen, setIsCartPreviewOpen] = useState(false);
 
   const handleAddToCart = (product) => {
     setCartItems([...cartItems, product]);
@@ -111,17 +112,29 @@ export default function CreateTransaction() {
 
     doc.save("transaction-receipt.pdf");
 
+    setIsCartPreviewOpen(false);
+
     navigate("/customer/transaction");
+  };
+
+  const handleOpenCartPreview = () => {
+    setIsCartPreviewOpen(true);
   };
 
   return (
     <>
       <ProductList onAddToCart={handleAddToCart} />
-      <CartPreview
-        cartItems={cartItems}
-        onRemoveFromCart={handleRemoveFromCart}
-        onConfirmPurchase={handleConfirmPurchase}
-      />
+      <button onClick={handleOpenCartPreview}>
+        Open Cart ({cartItems.length} items)
+      </button>
+      {isCartPreviewOpen && (
+        <CartPreview
+          cartItems={cartItems}
+          onRemoveFromCart={handleRemoveFromCart}
+          onConfirmPurchase={handleConfirmPurchase}
+          onClose={() => setIsCartPreviewOpen(false)}
+        />
+      )}
     </>
   );
 }
