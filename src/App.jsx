@@ -34,7 +34,11 @@ import {
   ProductGetById,
   EditProduct,
   CreateProduct,
+  Transaction,
+  CreateTransaction,
+  CartPreview,
 } from "@/page";
+
 import { ProtectedRoute, UnprotectedRoute } from "@/components";
 
 const router = createBrowserRouter(
@@ -257,6 +261,30 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Admin", "Employee", "Customer"]}>
               <UpdateUserPassword />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="transaction"
+          element={
+            <ProtectedRoute userRoles={["Customer"]}>
+              <Transaction />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="transaction/create"
+          element={
+            <ProtectedRoute userRoles={["Customer"]}>
+              <CreateTransaction />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="cart"
+          element={
+            <ProtectedRoute userRoles={["Customer"]}>
+              <CartPreview />
             </ProtectedRoute>
           }
         />

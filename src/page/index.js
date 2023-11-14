@@ -17,6 +17,10 @@ import Product from "./Product";
 import ProductGetById from "./Product/ProductGetById";
 import EditProduct from "./Product/EditProduct";
 import CreateProduct from "./Product/CreateProduct";
+import Transaction from "./Transaction";
+import CreateTransaction from "./Transaction/createTransaction";
+import CartPreview from "./Transaction/CartPreview";
+import ProductList from "./Transaction/ProductList";
 
 export {
     LoginUser,
@@ -38,4 +42,8 @@ export {
     ProductGetById,
     EditProduct,
     CreateProduct,
+    Transaction,
+    CreateTransaction,
+    CartPreview,
+    ProductList,
 };
