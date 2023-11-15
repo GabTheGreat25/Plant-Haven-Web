@@ -6,12 +6,14 @@ import "react-toastify/dist/ReactToastify.css";
 import { RingLoader } from "react-spinners";
 import { editProductValidation } from "@/validation";
 import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function () {
   const navigate = useNavigate();
   const { id } = useParams();
   const { data, isLoading } = useGetProductByIdQuery(id);
   const [updateProduct] = useUpdateProductMutation();
+  const auth = useSelector((state) => state.auth);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -33,7 +35,12 @@ export default function () {
             autoClose: 3000,
           };
           if (response?.data?.success === true) {
-            navigate("/admin/product");
+            const userRoles = auth?.user?.roles;
+            if (userRoles.includes("Admin")) {
+              navigate("/admin/product");
+            } else if (userRoles.includes("Employee")) {
+              navigate("/employee/product");
+            }
             toast.success(`${response?.data?.message}`, toastProps);
           } else {
             toast.error(`${response?.error?.data?.error?.message}`, toastProps);

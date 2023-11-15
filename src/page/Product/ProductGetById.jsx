@@ -3,6 +3,7 @@ import { useGetProductByIdQuery } from "@api";
 import { RingLoader } from "react-spinners";
 import { useNavigate, useParams } from "react-router-dom";
 import { TAGS } from "@/constants";
+import { useSelector } from "react-redux";
 
 export default function UserDetails() {
   const { id } = useParams();
@@ -16,9 +17,11 @@ export default function UserDetails() {
 
   const productClass = data?.details?.class;
 
-  const goBack = () => {
-    navigate("/admin/product");
-  };
+  const auth = useSelector((state) => state.auth);
+  const isEmployee = auth?.user?.roles?.includes("Employee");
+
+  const goBack = () =>
+    navigate(isEmployee ? "/employee/product" : "/admin/product");
 
   return (
     <>

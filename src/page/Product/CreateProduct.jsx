@@ -45,7 +45,12 @@ export default function () {
       };
 
       if (response?.data?.success) {
-        navigate("/admin/product");
+        const userRoles = auth?.user?.roles;
+        if (userRoles.includes("Admin")) {
+          navigate("/admin/product");
+        } else if (userRoles.includes("Employee")) {
+          navigate("/employee/product");
+        }
         toast.success(response?.data?.message, toastProps);
       } else {
         toast.error(response?.error?.data?.error?.message, toastProps);

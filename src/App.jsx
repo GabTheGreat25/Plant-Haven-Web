@@ -237,6 +237,38 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
+        <Route
+          path="product"
+          element={
+            <ProtectedRoute userRoles={["Employee"]}>
+              <Product />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="product/create"
+          element={
+            <ProtectedRoute userRoles={["Employee"]}>
+              <CreateProduct />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="product/:id"
+          element={
+            <ProtectedRoute userRoles={["Employee"]}>
+              <ProductGetById />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="product/edit/:id"
+          element={
+            <ProtectedRoute userRoles={["Employee"]}>
+              <EditProduct />
+            </ProtectedRoute>
+          }
+        />
       </Route>
       {/* Customer Routes */}
       <Route path="customer" element={<CustomerLayout />}>
