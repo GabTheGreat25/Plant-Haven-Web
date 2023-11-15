@@ -6,6 +6,7 @@ import { RingLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import { TAGS } from "@/constants";
 import { useSelector } from "react-redux";
+import { addDeletedItemId, getDeletedItemIds } from "../.././utils/DeleteItem";
 
 export default function ProductsList() {
   const navigate = useNavigate();
@@ -17,9 +18,11 @@ export default function ProductsList() {
   const isEmployee = auth?.user?.roles?.includes("Employee");
   const isAdmin = auth?.user?.roles?.includes("Admin");
 
-  const userProducts = data?.details?.filter(
-    (item) => isAdmin || item?.user?._id === auth?.user?._id
-  );
+  const deletedProductIds = getDeletedItemIds("product");
+
+  const userProducts = data?.details
+    ?.filter((item) => isAdmin || item?.user?._id === auth?.user?._id)
+    .filter((item) => !deletedProductIds.includes(item?._id));
 
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
@@ -32,6 +35,7 @@ export default function ProductsList() {
 
       if (response?.data?.success === true) {
         toast.success(`${response?.data?.message}`, toastProps);
+        addDeletedItemId("product", id);
       } else {
         toast.error(`${response?.error?.data?.error?.message}`, toastProps);
       }

@@ -55,6 +55,10 @@ export default function () {
     navigate("transaction/create");
   };
 
+  const ShowComments = () => {
+    navigate("comment");
+  };
+
   return (
     <>
       <div className="navbar">
@@ -88,6 +92,14 @@ export default function () {
                 onClick={ShowTransactions}
               >
                 Transaction History
+              </a>
+            </li>
+            <li>
+              <a
+                className="text-base hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                onClick={ShowComments}
+              >
+                Comment History
               </a>
             </li>
           </ul>

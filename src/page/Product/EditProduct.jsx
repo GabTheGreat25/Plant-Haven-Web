@@ -28,7 +28,17 @@ export default function () {
     },
     validationSchema: editProductValidation,
     onSubmit: async (values) => {
-      updateProduct({ id: data?.details?._id, payload: values }).then(
+      const formData = new FormData();
+      formData.append("product_name", values?.product_name);
+      formData.append("type", values?.type);
+      formData.append("class", values?.class);
+      formData.append("variant", values?.variant);
+      formData.append("price", values?.price);
+      formData.append("user", values?.user);
+      Array.from(values?.image).forEach((file) => {
+        formData.append("image", file);
+      });
+      updateProduct({ id: data?.details?._id, payload: formData }).then(
         (response) => {
           const toastProps = {
             position: toast.POSITION.TOP_RIGHT,

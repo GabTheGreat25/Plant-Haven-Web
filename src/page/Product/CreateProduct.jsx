@@ -38,7 +38,6 @@ export default function () {
         formData.append("image", file);
       });
       const response = await addProduct(formData);
-      console.log(response);
       const toastProps = {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 3000,

@@ -6,12 +6,15 @@ import { RingLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import { TAGS } from "@/constants";
 import moment from "moment";
+import { addDeletedItemId, getDeletedItemIds } from "../.././utils/DeleteItem";
 
 export default function () {
   const navigate = useNavigate();
   const { data, isLoading } = useGetDeliveriesQuery({
     populate: TAGS.PRODUCT,
   });
+
+  const deletedDeliveryIds = getDeletedItemIds("delivery");
 
   const [deleteDeliveries, { isLoading: isDeleting }] =
     useDeleteDeliveriesMutation();
@@ -27,11 +30,16 @@ export default function () {
 
       if (response?.data?.success === true) {
         toast.success(`${response?.data?.message}`, toastProps);
+        addDeletedItemId("delivery", id);
       } else {
         toast.error(`${response?.error?.data?.error?.message}`, toastProps);
       }
     }
   };
+
+  const filteredDeliveries = data?.details?.filter(
+    (item) => !deletedDeliveryIds.includes(item?._id)
+  );
 
   return (
     <>
@@ -48,8 +56,8 @@ export default function () {
           >
             Create
           </button>
-          {data?.details?.length ? (
-            data?.details?.map((item) => (
+          {filteredDeliveries?.length ? (
+            filteredDeliveries?.map((item) => (
               <div key={item?._id}>
                 <a
                   className="cursor-pointer"

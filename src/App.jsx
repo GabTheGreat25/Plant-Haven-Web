@@ -41,6 +41,12 @@ import {
   TransactionHistory,
   CreateTransaction,
   CartPreview,
+  Comment,
+  CommentGetById,
+  EditComment,
+  CreateComment,
+  CommentAll,
+  Dashboard,
 } from "@/page";
 
 import { ProtectedRoute, UnprotectedRoute } from "@/components";
@@ -106,7 +112,7 @@ const router = createBrowserRouter(
           index
           element={
             <ProtectedRoute userRoles={["Admin"]}>
-              <Test />
+              <Dashboard />
             </ProtectedRoute>
           }
         />
@@ -238,6 +244,22 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
+        <Route
+          path="commentAll"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <CommentAll />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="comment/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <CommentGetById />
+            </ProtectedRoute>
+          }
+        />
       </Route>
       {/* Employee Routes */}
       <Route path="employee" element={<EmployeeLayout />}>
@@ -245,7 +267,7 @@ const router = createBrowserRouter(
           index
           element={
             <ProtectedRoute userRoles={["Employee"]}>
-              <Test />
+              <Dashboard />
             </ProtectedRoute>
           }
         />
@@ -321,6 +343,22 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
+        <Route
+          path="commentAll"
+          element={
+            <ProtectedRoute userRoles={["Employee"]}>
+              <CommentAll />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="comment/:id"
+          element={
+            <ProtectedRoute userRoles={["Employee"]}>
+              <CommentGetById />
+            </ProtectedRoute>
+          }
+        />
       </Route>
       {/* Customer Routes */}
       <Route path="customer" element={<CustomerLayout />}>
@@ -377,6 +415,30 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Customer"]}>
               <TransactionHistory />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="comment"
+          element={
+            <ProtectedRoute userRoles={["Customer"]}>
+              <Comment />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="comment/create"
+          element={
+            <ProtectedRoute userRoles={["Customer"]}>
+              <CreateComment />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="comment/edit/:id"
+          element={
+            <ProtectedRoute userRoles={["Customer"]}>
+              <EditComment />
             </ProtectedRoute>
           }
         />

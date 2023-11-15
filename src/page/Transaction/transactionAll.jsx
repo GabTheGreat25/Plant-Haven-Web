@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { TAGS } from "@/constants";
 import { useSelector } from "react-redux";
 import moment from "moment";
+import { addDeletedItemId, getDeletedItemIds } from "../.././utils/DeleteItem";
 
 export default function () {
   const navigate = useNavigate();
@@ -24,6 +25,8 @@ export default function () {
     item.product.reduce((acc, product) => acc + product.price, 0)
   );
 
+  const deletedTransactionIds = getDeletedItemIds("transaction");
+
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this transaction?")) {
       const response = await deleteTransaction(id);
@@ -35,11 +38,16 @@ export default function () {
 
       if (response?.data?.success === true) {
         toast.success(`${response?.data?.message}`, toastProps);
+        addDeletedItemId("transaction", id);
       } else {
         toast.error(`${response?.error?.data?.error?.message}`, toastProps);
       }
     }
   };
+
+  const filteredTransactions = data?.details?.filter(
+    (item) => !deletedTransactionIds.includes(item?._id)
+  );
 
   return (
     <>
@@ -49,8 +57,8 @@ export default function () {
         </div>
       ) : (
         <main className="grid grid-flow-col gap-x-10 justify-center items-center h-screen">
-          {data?.details?.length ? (
-            data?.details?.map((item, index) => (
+          {filteredTransactions?.length ? (
+            filteredTransactions?.map((item, index) => (
               <div key={item?._id}>
                 <a
                   className="cursor-pointer"

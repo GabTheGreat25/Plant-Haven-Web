@@ -25,6 +25,12 @@ import EditTransaction from "./Transaction/EditTransaction";
 import TransactionAll from "./Transaction/TransactionAll";
 import TransactionGetById from "./Transaction/TransactionGetById";
 import TransactionHistory from "./Transaction/transactionHistory";
+import Comment from "./Comment";
+import CommentGetById from "./Comment/CommentGetById";
+import EditComment from "./Comment/EditComment";
+import CreateComment from "./Comment/CreateComment";
+import CommentAll from "./Comment/CommentAll";
+import Dashboard from "./Dashboard";
 
 export {
     LoginUser,
@@ -54,4 +60,10 @@ export {
     TransactionAll,
     TransactionGetById,
     TransactionHistory,
+    Comment,
+    CommentGetById,
+    EditComment,
+    CreateComment,
+    CommentAll,
+    Dashboard,
 };

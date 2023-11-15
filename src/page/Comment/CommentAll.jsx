@@ -1,27 +1,26 @@
 import React from "react";
-import { useGetUsersQuery, useDeleteUserMutation } from "@api";
+import { useGetCommentsQuery, useDeleteCommentMutation } from "@api";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { RingLoader } from "react-spinners";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { addDeletedItemId, getDeletedItemIds } from "../.././utils/DeleteItem";
+import { useSelector } from "react-redux";
+import { TAGS } from "@/constants";
 
 export default function () {
   const navigate = useNavigate();
-  const { data, isLoading } = useGetUsersQuery();
-  const [deleteUser, { isLoading: isDeleting }] = useDeleteUserMutation();
+  const { data, isLoading } = useGetCommentsQuery({
+    populate: TAGS.TRANSACTION,
+  });
+
   const auth = useSelector((state) => state.auth);
-
-  const deletedUserIds = getDeletedItemIds("user");
-
-  const filteredUser = data?.details
-    ?.filter((user) => user?._id !== auth?.user?._id)
-    .filter((item) => !deletedUserIds.includes(item?._id));
+  const [deleteComment, { isLoading: isDeleting }] = useDeleteCommentMutation();
+  const isEmployee = auth?.user?.roles?.includes("Employee");
+  const isAdmin = auth?.user?.roles?.includes("Admin");
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this user?")) {
-      const response = await deleteUser(id);
+    if (window.confirm("Are you sure you want to delete this comment?")) {
+      const response = await deleteComment(id);
 
       const toastProps = {
         position: toast.POSITION.TOP_RIGHT,
@@ -30,7 +29,6 @@ export default function () {
 
       if (response?.data?.success === true) {
         toast.success(`${response?.data?.message}`, toastProps);
-        addDeletedItemId("user", id);
       } else {
         toast.error(`${response?.error?.data?.error?.message}`, toastProps);
       }
@@ -45,19 +43,25 @@ export default function () {
         </div>
       ) : (
         <main className="grid grid-flow-col gap-x-10 justify-center items-center h-screen">
-          {filteredUser?.length ? (
-            filteredUser.map((item) => (
+          {data?.details?.length ? (
+            data?.details?.map((item, index) => (
               <div key={item?._id}>
                 <a
                   className="cursor-pointer"
-                  onClick={() => navigate(`${item?._id}`)}
+                  onClick={() =>
+                    navigate(
+                      `${isEmployee ? "/employee" : "/admin"}/comment/${
+                        item?._id
+                      }`
+                    )
+                  }
                 >
                   <h1>{item?._id}</h1>
                 </a>
-                <h1>{item?.name}</h1>
-                <h1>{item?.email}</h1>
-                <h1>{item?.roles}</h1>
-                {item.image?.map((image) => (
+                <h1>{item?.ratings}</h1>
+                <h1>{item?.text}</h1>
+                <h1>{item?.transaction?.status}</h1>
+                {item?.image?.map((image) => (
                   <img
                     width={75}
                     height={60}
@@ -66,14 +70,11 @@ export default function () {
                     key={image?.public_id}
                   />
                 ))}
-                <span className="grid grid-flow-col gap-x-4 justify-start">
-                  <button onClick={() => navigate(`edit/${item?._id}`)}>
-                    Edit
-                  </button>
+                {isAdmin ? (
                   <button onClick={() => handleDelete(item?._id)}>
                     Delete
                   </button>
-                </span>
+                ) : null}
               </div>
             ))
           ) : (
