@@ -35,6 +35,10 @@ import {
   EditProduct,
   CreateProduct,
   Transaction,
+  EditTransaction,
+  TransactionAll,
+  TransactionGetById,
+  TransactionHistory,
   CreateTransaction,
   CartPreview,
 } from "@/page";
@@ -210,6 +214,30 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
+        <Route
+          path="transaction/edit/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <EditTransaction />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="transactionAll"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <TransactionAll />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="transaction/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <TransactionGetById />
+            </ProtectedRoute>
+          }
+        />
       </Route>
       {/* Employee Routes */}
       <Route path="employee" element={<EmployeeLayout />}>
@@ -269,6 +297,30 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
+        <Route
+          path="transaction/edit/:id"
+          element={
+            <ProtectedRoute userRoles={["Employee"]}>
+              <EditTransaction />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="transactionAll"
+          element={
+            <ProtectedRoute userRoles={["Employee"]}>
+              <TransactionAll />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="transaction/:id"
+          element={
+            <ProtectedRoute userRoles={["Employee"]}>
+              <TransactionGetById />
+            </ProtectedRoute>
+          }
+        />
       </Route>
       {/* Customer Routes */}
       <Route path="customer" element={<CustomerLayout />}>
@@ -317,6 +369,14 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Customer"]}>
               <CartPreview />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="transactionHistory"
+          element={
+            <ProtectedRoute userRoles={["Customer"]}>
+              <TransactionHistory />
             </ProtectedRoute>
           }
         />

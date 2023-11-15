@@ -3,8 +3,10 @@ import { useSelector } from "react-redux";
 import jsPDF from "jspdf";
 import CartPreview from "./CartPreview";
 import { useAddTransactionMutation } from "@api";
+import { useNavigate } from "react-router-dom";
 
 export default function CartLogic(props) {
+  const navigate = useNavigate();
   const { cartItems, onRemoveFromCart, onClearCart } = props;
 
   const [addTransaction] = useAddTransactionMutation();
@@ -103,9 +105,9 @@ export default function CartLogic(props) {
 
     doc.save("transaction-receipt.pdf");
 
-    setIsCartPreviewOpen(false);
+    navigate("/customer/transactionHistory");
 
-    navigate("/customer/transaction");
+    setIsCartPreviewOpen(false);
   };
 
   const handleToggleCartPreview = () => {
@@ -117,7 +119,11 @@ export default function CartLogic(props) {
       <button onClick={handleToggleCartPreview}>
         {isCartPreviewOpen
           ? "Close Cart"
-          : `Open Cart (${cartItems.length} items)`}
+          : `Open Cart ${
+              cartItems.length === 0
+                ? `(No Items)`
+                : `(${cartItems.length} items)`
+            }`}
       </button>
       {isCartPreviewOpen && (
         <CartPreview

@@ -1,4 +1,3 @@
-// ProductList.js
 import React from "react";
 import { useGetProductsQuery } from "@api";
 
@@ -12,7 +11,15 @@ export default function ProductList({ onAddToCart, isProductInCart }) {
           data?.details?.map((product) => (
             <div key={product?._id}>
               <p>{product?.product_name}</p>
-              {/* ... (other product details) */}
+              {product?.image?.map((image) => (
+                <img
+                  width={75}
+                  height={60}
+                  src={image?.url}
+                  alt={image?.originalname}
+                  key={image?.public_id}
+                />
+              ))}
               <button
                 onClick={() => onAddToCart(product)}
                 disabled={isProductInCart(product._id)}

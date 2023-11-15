@@ -47,6 +47,14 @@ export default function () {
     navigate("updateUserPassword");
   };
 
+  const ShowTransactions = () => {
+    navigate("transactionHistory");
+  };
+
+  const CreateTransactions = () => {
+    navigate("transaction/create");
+  };
+
   return (
     <>
       <div className="navbar">
@@ -69,9 +77,17 @@ export default function () {
             <li>
               <a
                 className="text-base hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
-                onClick={ShowProducts}
+                onClick={CreateTransactions}
               >
-                Show Products
+                Buy Plants
+              </a>
+            </li>
+            <li>
+              <a
+                className="text-base hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                onClick={ShowTransactions}
+              >
+                Transaction History
               </a>
             </li>
           </ul>

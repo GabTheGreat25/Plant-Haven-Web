@@ -59,6 +59,10 @@ export default function () {
     navigate("product");
   };
 
+  const ShowTransactions = () => {
+    navigate("transactionAll");
+  };
+
   return (
     <>
       <div className="navbar">
@@ -100,6 +104,14 @@ export default function () {
                 onClick={ShowProducts}
               >
                 Show Products
+              </a>
+            </li>
+            <li>
+              <a
+                className="text-base hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                onClick={ShowTransactions}
+              >
+                Show Transactions
               </a>
             </li>
           </ul>

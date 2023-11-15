@@ -21,6 +21,10 @@ import Transaction from "./Transaction";
 import CreateTransaction from "./Transaction/createTransaction";
 import CartPreview from "./Transaction/CartPreview";
 import ProductList from "./Transaction/ProductList";
+import EditTransaction from "./Transaction/EditTransaction";
+import TransactionAll from "./Transaction/TransactionAll";
+import TransactionGetById from "./Transaction/TransactionGetById";
+import TransactionHistory from "./Transaction/transactionHistory";
 
 export {
     LoginUser,
@@ -46,4 +50,8 @@ export {
     CreateTransaction,
     CartPreview,
     ProductList,
+    EditTransaction,
+    TransactionAll,
+    TransactionGetById,
+    TransactionHistory,
 };
