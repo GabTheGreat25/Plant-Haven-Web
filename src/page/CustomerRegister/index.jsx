@@ -49,19 +49,29 @@ export default function () {
   const handleClickShowPassword = () => setShowPassword(!showPassword);
 
   return (
-    <>
+    <div className="min-h-screen flex items-center justify-center">
       {isLoading ? (
         <div className="loader">
           <RingLoader color="#4F6C42" loading={true} size={50} />
         </div>
       ) : (
         <>
-          <main className="grid justify-center items-center h-screen">
+          <div className="max-w-md w-full p-8 rounded shadow-xl bg-dark-default dark:bg-light-default">
             <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
-              <section className="grid justify-center items-center text-center">
+              <section className="grid justify-center items-center">
                 <div>
-                  <label htmlFor="name">Name:</label>
+                  <label
+                    className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
+                    htmlFor="name"
+                  >
+                    Name:
+                  </label>
                   <input
+                    className={`w-full px-3 py-2 border ${
+                      formik.touched.name && formik.errors.name
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    } rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
                     type="name"
                     id="name"
                     name="name"
@@ -74,8 +84,18 @@ export default function () {
                   )}
                 </div>
                 <div>
-                  <label htmlFor="email">Email:</label>
+                  <label
+                    className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
+                    htmlFor="email"
+                  >
+                    Email:
+                  </label>
                   <input
+                    className={`w-full px-3 py-2 border ${
+                      formik.touched.email && formik.errors.email
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    } rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
                     type="email"
                     id="email"
                     name="email"
@@ -88,8 +108,18 @@ export default function () {
                   )}
                 </div>
                 <div>
-                  <label htmlFor="password">Password:</label>
+                  <label
+                    className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
+                    htmlFor="password"
+                  >
+                    Password:
+                  </label>
                   <input
+                    className={`w-full px-3 py-2 border ${
+                      formik.touched.password && formik.errors.password
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    } rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
                     type={showPassword ? "text" : "password"}
                     id="password"
                     name="password"
@@ -101,15 +131,27 @@ export default function () {
                     type="checkbox"
                     id="showPassword"
                     onChange={handleClickShowPassword}
+                    className="mt-2"
                   />
-                  <label htmlFor="showPassword">Show Password</label>
+                  <label
+                    htmlFor="showPassword"
+                    className="text-sm  text-light-default dark:text-dark-default ml-2 relative top-1 cursor-pointer"
+                  >
+                    Show Password
+                  </label>
                   {formik.touched.password && formik.errors.password && (
                     <div className="text-red-600">{formik.errors.password}</div>
                   )}
                 </div>
                 <div>
-                  <label htmlFor="image">Upload Image:</label>
+                  <label
+                    className="block mt-4 text-light-default dark:text-dark-default text-sm font-bold mb-2"
+                    htmlFor="image"
+                  >
+                    Upload Image:
+                  </label>
                   <input
+                    className={`w-full px-3 py-2 border rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
                     type="file"
                     id="image"
                     name="image"
@@ -119,20 +161,38 @@ export default function () {
                     onBlur={formik.handleBlur}
                     multiple
                   />
-                  <span className="grid justify-center items-center grid-flow-col gap-x-2">
+                  <span className="mt-4 grid justify-center items-center grid-flow-col gap-x-2">
                     {formik.values.image && (
                       <ImagePreview images={Array.from(formik.values.image)} />
                     )}
                   </span>
                 </div>
-                <button type="submit" disabled={!formik.isValid}>
-                  Submit
-                </button>
+
+                <span className="mt-4 grid grid-flow-col gap-x-4">
+                  <button
+                    type="submit"
+                    disabled={!formik.isValid}
+                    className={`w-full bg-green-500 text-white font-bold py-2 px-4 rounded ${
+                      formik.isValid
+                        ? "hover:bg-green-700"
+                        : "cursor-not-allowed opacity-50"
+                    }`}
+                  >
+                    Submit
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => navigate(-1)}
+                    className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded cursor-pointer"
+                  >
+                    Go Back
+                  </button>
+                </span>
               </section>
             </form>
-          </main>
+          </div>
         </>
       )}
-    </>
+    </div>
   );
 }

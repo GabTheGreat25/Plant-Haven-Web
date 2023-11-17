@@ -61,19 +61,29 @@ export default function () {
   });
 
   return (
-    <>
+    <div className="min-h-screen flex items-center justify-center">
       {isLoading ? (
         <div className="loader">
           <RingLoader color="#4F6C42" loading={true} size={50} />
         </div>
       ) : (
         <>
-          <main className="grid justify-center items-center h-screen">
+          <div className="max-w-md w-full p-8 rounded shadow-xl bg-dark-default dark:bg-light-default">
             <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
               <section className="grid justify-center items-center text-center">
                 <div>
-                  <label htmlFor="product_name">Product Name:</label>
+                  <label
+                    className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
+                    htmlFor="product_name"
+                  >
+                    Product Name:
+                  </label>
                   <input
+                    className={`w-full mb-4 px-3 py-2 border ${
+                      formik.touched.product_name && formik.errors.product_name
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    } rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
                     type="text"
                     id="product_name"
                     name="product_name"
@@ -89,8 +99,18 @@ export default function () {
                     )}
                 </div>
                 <div>
-                  <label htmlFor="type">Type:</label>
+                  <label
+                    className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
+                    htmlFor="type"
+                  >
+                    Type:
+                  </label>
                   <input
+                    className={`w-full mb-4 px-3 py-2 border ${
+                      formik.touched.type && formik.errors.type
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    } rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
                     type="text"
                     id="type"
                     name="type"
@@ -103,8 +123,18 @@ export default function () {
                   )}
                 </div>
                 <div>
-                  <label htmlFor="class">Class:</label>
+                  <label
+                    className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
+                    htmlFor="class"
+                  >
+                    Class:
+                  </label>
                   <input
+                    className={`w-full mb-4 px-3 py-2 border ${
+                      formik.touched.class && formik.errors.class
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    } rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
                     type="text"
                     id="class"
                     name="class"
@@ -120,8 +150,18 @@ export default function () {
                 </div>
 
                 <div>
-                  <label htmlFor="variant">Variant:</label>
+                  <label
+                    className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
+                    htmlFor="variant"
+                  >
+                    Variant:
+                  </label>
                   <select
+                    className={`w-full mb-4 px-3 py-2 border ${
+                      formik.touched.variant && formik.errors.variant
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    } rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
                     id="variant"
                     name="variant"
                     onChange={formik.handleChange}
@@ -138,8 +178,18 @@ export default function () {
                 </div>
 
                 <div>
-                  <label htmlFor="price">Price:</label>
+                  <label
+                    className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
+                    htmlFor="price"
+                  >
+                    Price:
+                  </label>
                   <input
+                    className={`w-full mb-4 px-3 py-2 border ${
+                      formik.touched.price && formik.errors.price
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    } rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
                     type="number"
                     id="price"
                     name="price"
@@ -155,7 +205,12 @@ export default function () {
                 </div>
 
                 <div>
-                  <label htmlFor="image">Upload Image:</label>
+                  <label
+                    className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
+                    htmlFor="image"
+                  >
+                    Upload Image:
+                  </label>
                   <input
                     type="file"
                     id="image"
@@ -180,14 +235,31 @@ export default function () {
                   </span>
                 </div>
 
-                <button type="submit" disabled={!formik.isValid}>
-                  Submit
-                </button>
+                <span className="mt-4 grid grid-flow-col gap-x-4">
+                  <button
+                    type="submit"
+                    disabled={!formik.isValid}
+                    className={`w-full bg-green-500 text-white font-bold py-2 px-4 rounded ${
+                      formik.isValid
+                        ? "hover:bg-green-700"
+                        : "cursor-not-allowed opacity-50"
+                    }`}
+                  >
+                    Submit
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => navigate(-1)}
+                    className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded cursor-pointer"
+                  >
+                    Go Back
+                  </button>
+                </span>
               </section>
             </form>
-          </main>
+          </div>
         </>
       )}
-    </>
+    </div>
   );
 }

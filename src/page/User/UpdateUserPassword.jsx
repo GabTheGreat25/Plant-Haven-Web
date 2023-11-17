@@ -48,8 +48,9 @@ export default function () {
             navigate("/customer");
           }
           toast.success(`${response?.data?.message}`, toastProps);
-        } else
+        } else {
           toast.error(`${response?.error?.data?.error?.message}`, toastProps);
+        }
       });
     },
   });
@@ -62,91 +63,145 @@ export default function () {
     setShowConfirmPassword(!showConfirmPassword);
 
   return (
-    <>
+    <div className="flex justify-center items-center h-screen bg-gray-100">
       {isLoading ? (
-        <div className="loader">
+        <div className="flex justify-center items-center">
           <RingLoader color="#4F6C42" loading={true} size={50} />
         </div>
       ) : (
-        <>
-          <main className="grid justify-center items-center h-screen">
-            <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
-              <section className="grid justify-center items-center text-center">
-                <div>
-                  <label htmlFor="oldPassword"> Old Password: </label>
-                  <input
-                    type={showOldPassword ? "text" : "password"}
-                    id="oldPassword"
-                    name="oldPassword"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.oldPassword}
-                  />
-                  <input
-                    type="checkbox"
-                    id="showOldPassword"
-                    onChange={handleClickShowOldPassword}
-                  />
-                  <label htmlFor="showOldPassword">Show Old Password</label>
-                  {formik.touched.oldPassword && formik.errors.oldPassword && (
-                    <div className="text-red-600">
-                      {formik.errors.oldPassword}
-                    </div>
-                  )}
-                </div>
-                <div>
-                  <label htmlFor="newPassword"> New Password: </label>
-                  <input
-                    type={showNewPassword ? "text" : "password"}
-                    id="newPassword"
-                    name="newPassword"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.newPassword}
-                  />
-                  <input
-                    type="checkbox"
-                    id="showNewPassword"
-                    onChange={handleClickShowNewPassword}
-                  />
-                  <label htmlFor="showNewPassword">Show New Password</label>
-                  {formik.touched.newPassword && formik.errors.newPassword && (
-                    <div className="text-red-600">
-                      {formik.errors.newPassword}
-                    </div>
-                  )}
-                </div>
-                <div>
-                  <label htmlFor="confirmPassword"> Confirm Password: </label>
-                  <input
-                    type={showConfirmPassword ? "text" : "password"}
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.confirmPassword}
-                  />
-                  <input
-                    type="checkbox"
-                    id="showConfirmPassword"
-                    onChange={handleClickShowConfirmPassword}
-                  />
-                  <label htmlFor="showConfirmPassword">Show New Password</label>
-                  {formik.touched.confirmPassword &&
-                    formik.errors.confirmPassword && (
-                      <div className="text-red-600">
-                        {formik.errors.confirmPassword}
-                      </div>
-                    )}
-                </div>
-                <button type="submit" disabled={!formik.isValid}>
-                  Submit
-                </button>
-              </section>
-            </form>
-          </main>
-        </>
+        <div className="max-w-md w-full mb-2 p-8 bg-white shadow-lg rounded-md">
+          <h2 className="text-3xl font-extrabold text-gray-800 mb-6">
+            Update Password
+          </h2>
+          <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="oldPassword"
+              >
+                Old Password:
+              </label>
+              <input
+                className={`w-full mb-2 px-3 py-2 border ${
+                  formik.touched.oldPassword && formik.errors.oldPassword
+                    ? "border-red-500"
+                    : "border-gray-300"
+                } rounded focus:outline-none focus:ring focus:border-blue-300`}
+                type={showOldPassword ? "text" : "password"}
+                id="oldPassword"
+                name="oldPassword"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.oldPassword}
+                placeholder="Enter your old password"
+              />
+              <input
+                type="checkbox"
+                id="showOldPassword"
+                onChange={handleClickShowOldPassword}
+              />
+              <label
+                className="relative top-[.1rem] left-2"
+                htmlFor="showOldPassword"
+              >
+                Show Old Password
+              </label>
+              {formik.touched.oldPassword && formik.errors.oldPassword && (
+                <p className="text-red-500 text-xs mt-1">
+                  {formik.errors.oldPassword}
+                </p>
+              )}
+            </div>
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="newPassword"
+              >
+                New Password:
+              </label>
+              <input
+                className={`w-full mb-2 px-3 py-2 border ${
+                  formik.touched.newPassword && formik.errors.newPassword
+                    ? "border-red-500"
+                    : "border-gray-300"
+                } rounded focus:outline-none focus:ring focus:border-blue-300`}
+                type={showNewPassword ? "text" : "password"}
+                id="newPassword"
+                name="newPassword"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.newPassword}
+                placeholder="Enter your new password"
+              />
+              <input
+                type="checkbox"
+                id="showNewPassword"
+                onChange={handleClickShowNewPassword}
+              />
+              <label
+                className="relative top-[.1rem] left-2"
+                htmlFor="showNewPassword"
+              >
+                Show New Password
+              </label>
+              {formik.touched.newPassword && formik.errors.newPassword && (
+                <p className="text-red-500 text-xs mt-1">
+                  {formik.errors.newPassword}
+                </p>
+              )}
+            </div>
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="confirmPassword"
+              >
+                Confirm Password:
+              </label>
+              <input
+                className={`w-full mb-2 px-3 py-2 border ${
+                  formik.touched.confirmPassword &&
+                  formik.errors.confirmPassword
+                    ? "border-red-500"
+                    : "border-gray-300"
+                } rounded focus:outline-none focus:ring focus:border-blue-300`}
+                type={showConfirmPassword ? "text" : "password"}
+                id="confirmPassword"
+                name="confirmPassword"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.confirmPassword}
+                placeholder="Confirm your new password"
+              />
+              <input
+                type="checkbox"
+                id="showConfirmPassword"
+                onChange={handleClickShowConfirmPassword}
+              />
+              <label
+                className="relative top-[.1rem] left-2"
+                htmlFor="showConfirmPassword"
+              >
+                Show Confirm Password
+              </label>
+              {formik.touched.confirmPassword &&
+                formik.errors.confirmPassword && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {formik.errors.confirmPassword}
+                  </p>
+                )}
+            </div>
+            <button
+              className={`w-full mb-2 bg-green-500 text-white font-bold py-2 px-4 rounded focus:outline-none ${
+                !formik.isValid && "opacity-50 cursor-not-allowed"
+              }`}
+              type="submit"
+              disabled={!formik.isValid}
+            >
+              Submit
+            </button>
+          </form>
+        </div>
       )}
-    </>
+    </div>
   );
 }

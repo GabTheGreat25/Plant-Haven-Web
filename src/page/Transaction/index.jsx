@@ -5,7 +5,7 @@ import CartPreview from "./CartPreview";
 import { useAddTransactionMutation } from "@api";
 import { useNavigate } from "react-router-dom";
 
-export default function CartLogic(props) {
+export default function (props) {
   const navigate = useNavigate();
   const { cartItems, onRemoveFromCart, onClearCart } = props;
 
@@ -116,7 +116,10 @@ export default function CartLogic(props) {
 
   return (
     <>
-      <button onClick={handleToggleCartPreview}>
+      <button
+        className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600"
+        onClick={handleToggleCartPreview}
+      >
         {isCartPreviewOpen
           ? "Close Cart"
           : `Open Cart ${

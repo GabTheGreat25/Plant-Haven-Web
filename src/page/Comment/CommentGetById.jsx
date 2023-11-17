@@ -27,12 +27,15 @@ export default function () {
           <RingLoader color="#4F6C42" loading={true} size={50} />
         </div>
       ) : (
-        <main className="grid grid-flow-col gap-x-10 justify-center items-center h-screen">
-          <div key={_id}>
-            <h1>{_id}</h1>
-            <h1>{ratings}</h1>
-            <h1>{text}</h1>
-            <h1>{transaction?.status}</h1>
+        <main className="flex items-center justify-center h-screen">
+          <div
+            key={_id}
+            className="bg-dark-default text-light-default dark:bg-light-default dark:text-dark-default p-6 rounded-md shadow-md w-96"
+          >
+            <h1 className="text-3xl font-bold mb-4">{ratings}</h1>
+            <p className="text-sm mb-2">Comment ID: {_id}</p>
+            <p className="text-sm mb-2">Text: {text}</p>
+            <p className="text-sm mb-2">Transaction: {transaction?.status}</p>
             {image?.map((image) => (
               <img
                 width={75}
@@ -42,7 +45,13 @@ export default function () {
                 key={image?.public_id}
               />
             ))}
-            <button onClick={goBack}>Go Back</button>
+            <button
+              type="button"
+              onClick={goBack}
+              className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded cursor-pointer"
+            >
+              Go Back
+            </button>
           </div>
         </main>
       )}

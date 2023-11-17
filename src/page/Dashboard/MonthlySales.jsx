@@ -42,7 +42,9 @@ export default function () {
   return (
     <>
       {isLoading ? (
-        <RingLoader color="#2c3e50" loading={true} size={50} />
+        <div className="loader">
+          <RingLoader color="#4F6C42" loading={true} size={50} />
+        </div>
       ) : !data ? null : (
         <>
           {groupedData.length !== 0 && (

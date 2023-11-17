@@ -3,16 +3,14 @@ import { useGetTransactionsQuery, useGetCommentsQuery } from "@api";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { RingLoader } from "react-spinners";
-import { useNavigate } from "react-router-dom";
-import { TAGS } from "@/constants";
+import DataTable from "react-data-table-component";
 import { useSelector } from "react-redux";
 import moment from "moment";
 
 export default function () {
-  const navigate = useNavigate();
   const { data: transactions, isLoading: transactionsLoading } =
     useGetTransactionsQuery({
-      populate: [TAGS.USER, TAGS.PRODUCT],
+      populate: ["user", "product"],
     });
 
   const auth = useSelector((state) => state.auth);
@@ -35,73 +33,95 @@ export default function () {
 
   const { data: comments, isLoading: commentsLoading } = useGetCommentsQuery();
 
+  const columns = [
+    { name: "Transaction ID", selector: "_id", sortable: true },
+    { name: "User Name", selector: "user.name", sortable: true },
+    {
+      name: "Product",
+      selector: "product",
+      sortable: true,
+      cell: (row) => (
+        <div>
+          {row.product.map((product) => (
+            <div key={product?._id}>
+              <h1>{product?.product_name}</h1>
+              <h1>{product?.price}</h1>
+              {product?.image?.map((image) => (
+                <img
+                  width={75}
+                  height={60}
+                  src={image?.url}
+                  alt={image?.originalname}
+                  key={image?.public_id}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
+      ),
+    },
+    { name: "Status", selector: "status", sortable: true },
+    {
+      name: "Date",
+      selector: "date",
+      sortable: true,
+      format: (row) => moment(row.date).format("YYYY-MM-DD"),
+    },
+    {
+      name: "Total Price",
+      selector: "totalPrice",
+      sortable: true,
+      cell: (row) => totalPrices[userTransactions.indexOf(row)],
+    },
+    {
+      name: "Actions",
+      cell: (row) => (
+        <>
+          {comments?.details?.some(
+            (comment) => comment?.transaction?._id === row?._id
+          ) ? (
+            <p>This transaction already has a comment.</p>
+          ) : (
+            <button
+              onClick={() =>
+                isTransactionCompleted(row)
+                  ? toast.error(
+                      "Transaction is pending. Cannot add a comment.",
+                      toastProps
+                    )
+                  : toast.success("Comment added successfully.", toastProps)
+              }
+            >
+              Add Comment
+            </button>
+          )}
+        </>
+      ),
+    },
+  ];
+
   return (
-    <>
+    <div className="container mx-auto my-8 p-8 max-w-screen-xl rounded-lg shadow-2xl">
       {transactionsLoading || commentsLoading ? (
         <div className="loader">
           <RingLoader color="#4F6C42" loading={true} size={50} />
         </div>
       ) : (
-        <main className="grid grid-flow-col gap-x-10 justify-center items-center h-screen">
+        <div className="mt-8">
           {userTransactions?.length ? (
-            userTransactions?.map((item, index) => {
-              // Find comments for the current transaction
-              const transactionComments = comments?.details?.filter(
-                (comment) => comment?.transaction?._id === item?._id
-              );
-
-              return (
-                <div key={item?._id}>
-                  <h1>{item?._id}</h1>
-                  <h1>{item?.user?.name}</h1>
-                  {item.product?.map((product) => (
-                    <div key={product?._id}>
-                      <h1>{product?.product_name}</h1>
-                      <h1>{product?.price}</h1>
-                      {product?.image?.map((image) => (
-                        <img
-                          width={75}
-                          height={60}
-                          src={image?.url}
-                          alt={image?.originalname}
-                          key={image?.public_id}
-                        />
-                      ))}
-                    </div>
-                  ))}
-                  <h1>{item?.status}</h1>
-                  <h1>
-                    {item?.date ? moment(item?.date).format("YYYY-MM-DD") : ""}
-                  </h1>
-
-                  <h1>Total Price: {totalPrices[index]}</h1>
-
-                  {transactionComments?.length > 0 ? (
-                    <p>This transaction already has a comment.</p>
-                  ) : (
-                    <button
-                      onClick={() =>
-                        isTransactionCompleted(item)
-                          ? navigate("/customer/comment/create", {
-                              state: { transactionId: item?._id },
-                            })
-                          : toast.error(
-                              "Transaction is pending. Cannot add a comment.",
-                              toastProps
-                            )
-                      }
-                    >
-                      Add Comment
-                    </button>
-                  )}
-                </div>
-              );
-            })
+            <DataTable
+              title="User Transactions"
+              columns={columns}
+              data={userTransactions}
+              pagination
+              highlightOnHover
+              pointerOnHover
+            />
           ) : (
             <p>No data available.</p>
           )}
-        </main>
+        </div>
       )}
-    </>
+    </div>
   );
 }

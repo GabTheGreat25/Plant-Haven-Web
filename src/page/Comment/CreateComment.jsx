@@ -8,7 +8,7 @@ import { createCommentValidation } from "@/validation";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ImagePreview } from "@/components";
 
-export default function CommentCreationComponent() {
+export default function () {
   const navigate = useNavigate();
   const location = useLocation();
   const [addComment, { isLoading }] = useAddCommentMutation();
@@ -48,19 +48,29 @@ export default function CommentCreationComponent() {
   });
 
   return (
-    <>
+    <div className="min-h-screen flex items-center justify-center">
       {isLoading ? (
         <div className="loader">
           <RingLoader color="#4F6C42" loading={true} size={50} />
         </div>
       ) : (
         <>
-          <main className="grid justify-center items-center h-screen">
+          <div className="max-w-md w-full p-8 rounded shadow-xl bg-dark-default dark:bg-light-default">
             <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
               <section className="grid justify-center items-center text-center">
                 <div>
-                  <label htmlFor="text">Text:</label>
+                  <label
+                    className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
+                    htmlFor="text"
+                  >
+                    Text:
+                  </label>
                   <input
+                    className={`w-full px-3 py-2 border ${
+                      formik.touched.text && formik.errors.text
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    } rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
                     type="text"
                     id="text"
                     name="text"
@@ -73,8 +83,18 @@ export default function CommentCreationComponent() {
                   )}
                 </div>
                 <div>
-                  <label htmlFor="ratings">Ratings:</label>
+                  <label
+                    className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
+                    htmlFor="ratings"
+                  >
+                    Ratings:
+                  </label>
                   <input
+                    className={`w-full px-3 py-2 border ${
+                      formik.touched.ratings && formik.errors.ratings
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    } rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
                     type="number"
                     id="ratings"
                     name="ratings"
@@ -85,15 +105,19 @@ export default function CommentCreationComponent() {
                     max="5"
                   />
                   {formik.touched.ratings && formik.errors.ratings && (
-                    <div className="text-red-600">
-                      {formik.errors.ratings}
-                    </div>
+                    <div className="text-red-600">{formik.errors.ratings}</div>
                   )}
                 </div>
 
                 <div>
-                  <label htmlFor="image">Upload Image:</label>
+                  <label
+                    className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
+                    htmlFor="image"
+                  >
+                    Upload Image:
+                  </label>
                   <input
+                    className={`w-full px-3 py-2 border rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
                     type="file"
                     id="image"
                     name="image"
@@ -103,21 +127,38 @@ export default function CommentCreationComponent() {
                     onBlur={formik.handleBlur}
                     multiple
                   />
-                  <span className="grid justify-center items-center grid-flow-col gap-x-2">
+                  <span className="mt-4 grid justify-center items-center grid-flow-col gap-x-2">
                     {formik.values.image && (
                       <ImagePreview images={Array.from(formik.values.image)} />
                     )}
                   </span>
                 </div>
 
-                <button type="submit" disabled={!formik.isValid}>
-                  Submit
-                </button>
+                <span className="mt-4 grid grid-flow-col gap-x-4">
+                  <button
+                    type="submit"
+                    disabled={!formik.isValid}
+                    className={`w-full bg-green-500 text-white font-bold py-2 px-4 rounded ${
+                      formik.isValid
+                        ? "hover:bg-green-700"
+                        : "cursor-not-allowed opacity-50"
+                    }`}
+                  >
+                    Submit
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => navigate(-1)}
+                    className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded cursor-pointer"
+                  >
+                    Go Back
+                  </button>
+                </span>
               </section>
             </form>
-          </main>
+          </div>
         </>
       )}
-    </>
+    </div>
   );
 }

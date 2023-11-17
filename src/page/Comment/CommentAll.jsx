@@ -6,6 +6,7 @@ import { RingLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { TAGS } from "@/constants";
+import DataTable from "react-data-table-component";
 
 export default function () {
   const navigate = useNavigate();
@@ -35,53 +36,68 @@ export default function () {
     }
   };
 
+  const columns = [
+    { name: "ID", selector: "_id", sortable: true },
+    { name: "Ratings", selector: "ratings", sortable: true },
+    { name: "Text", selector: "text", sortable: true },
+    { name: "Status", selector: "transaction.status", sortable: true },
+    {
+      name: "Actions",
+      cell: (row) => (
+        <div className="flex items-center space-x-4">
+          {isAdmin ? (
+            <>
+              <button
+                className="text-red-500 hover:underline"
+                onClick={() => handleDelete(row._id)}
+              >
+                Delete
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                className="text-gray-500 cursor-not-allowed opacity-50"
+                disabled={true}
+              >
+                Delete
+              </button>
+            </>
+          )}
+        </div>
+      ),
+    },
+  ];
+
   return (
-    <>
+    <div className="container mx-auto my-8 p-8 max-w-screen-xl rounded-lg shadow-2xl">
       {isLoading || isDeleting ? (
         <div className="loader">
           <RingLoader color="#4F6C42" loading={true} size={50} />
         </div>
       ) : (
-        <main className="grid grid-flow-col gap-x-10 justify-center items-center h-screen">
+        <div className="mt-8">
           {data?.details?.length ? (
-            data?.details?.map((item, index) => (
-              <div key={item?._id}>
-                <a
-                  className="cursor-pointer"
-                  onClick={() =>
-                    navigate(
-                      `${isEmployee ? "/employee" : "/admin"}/comment/${
-                        item?._id
-                      }`
-                    )
-                  }
-                >
-                  <h1>{item?._id}</h1>
-                </a>
-                <h1>{item?.ratings}</h1>
-                <h1>{item?.text}</h1>
-                <h1>{item?.transaction?.status}</h1>
-                {item?.image?.map((image) => (
-                  <img
-                    width={75}
-                    height={60}
-                    src={image?.url}
-                    alt={image?.originalname}
-                    key={image?.public_id}
-                  />
-                ))}
-                {isAdmin ? (
-                  <button onClick={() => handleDelete(item?._id)}>
-                    Delete
-                  </button>
-                ) : null}
-              </div>
-            ))
+            <DataTable
+              title="Comments"
+              columns={columns}
+              data={data.details}
+              pagination
+              highlightOnHover
+              pointerOnHover
+              onRowClicked={(row) => {
+                if (isEmployee || isAdmin) {
+                  navigate(
+                    `${isEmployee ? "/employee" : "/admin"}/comment/${row._id}`
+                  );
+                }
+              }}
+            />
           ) : (
             <p>No data available.</p>
           )}
-        </main>
+        </div>
       )}
-    </>
+    </div>
   );
 }

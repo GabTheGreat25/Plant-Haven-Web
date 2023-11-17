@@ -58,18 +58,23 @@ export default function () {
   });
 
   return (
-    <>
+    <div className="min-h-screen flex items-center justify-center">
       {isLoading ? (
         <div className="loader">
           <RingLoader color="#4F6C42" loading={true} size={50} />
         </div>
       ) : (
         <>
-          <main className="grid justify-center items-center h-screen">
+          <div className="max-w-md w-full p-8 rounded shadow-xl bg-dark-default dark:bg-light-default">
             <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
-              <section className="grid justify-center items-center text-center">
+              <section className="grid justify-center items-center">
                 <div>
-                  <label htmlFor="product_name">Product Name:</label>
+                  <label
+                    className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
+                    htmlFor="product_name"
+                  >
+                    Product Name:
+                  </label>
                   <input
                     type="text"
                     id="product_name"
@@ -77,6 +82,11 @@ export default function () {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.product_name}
+                    className={`w-full mb-4 px-3 py-2 border ${
+                      formik.touched.product_name && formik.errors.product_name
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    } rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
                   />
                   {formik.touched.product_name &&
                     formik.errors.product_name && (
@@ -86,7 +96,12 @@ export default function () {
                     )}
                 </div>
                 <div>
-                  <label htmlFor="type">Type:</label>
+                  <label
+                    className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
+                    htmlFor="type"
+                  >
+                    Type:
+                  </label>
                   <input
                     type="text"
                     id="type"
@@ -94,13 +109,23 @@ export default function () {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.type}
+                    className={`w-full mb-4 px-3 py-2 border ${
+                      formik.touched.type && formik.errors.type
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    } rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
                   />
                   {formik.touched.type && formik.errors.type && (
                     <div className="text-red-600">{formik.errors.type}</div>
                   )}
                 </div>
                 <div>
-                  <label htmlFor="class">Class:</label>
+                  <label
+                    className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
+                    htmlFor="class"
+                  >
+                    Class:
+                  </label>
                   <input
                     type="text"
                     id="class"
@@ -110,6 +135,11 @@ export default function () {
                     value={formik.values.class}
                     min="1"
                     max="10000"
+                    className={`w-full mb-4 px-3 py-2 border ${
+                      formik.touched.class && formik.errors.class
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    } rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
                   />
                   {formik.touched.class && formik.errors.class && (
                     <div className="text-red-600">{formik.errors.class}</div>
@@ -117,13 +147,23 @@ export default function () {
                 </div>
 
                 <div>
-                  <label htmlFor="variant">Variant:</label>
+                  <label
+                    className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
+                    htmlFor="variant"
+                  >
+                    Variant:
+                  </label>
                   <select
                     id="variant"
                     name="variant"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.variant}
+                    className={`w-full mb-4 px-3 py-2 border ${
+                      formik.touched.variant && formik.errors.variant
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    } rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
                   >
                     <option value="" label="Select a variant" />
                     <option value="Local" label="Local" />
@@ -135,7 +175,12 @@ export default function () {
                 </div>
 
                 <div>
-                  <label htmlFor="price">Price:</label>
+                  <label
+                    className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
+                    htmlFor="price"
+                  >
+                    Price:
+                  </label>
                   <input
                     type="number"
                     id="price"
@@ -145,6 +190,11 @@ export default function () {
                     value={formik.values.price}
                     min="1"
                     max="10000"
+                    className={`w-full mb-4 px-3 py-2 border ${
+                      formik.touched.price && formik.errors.price
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    } rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
                   />
                   {formik.touched.price && formik.errors.price && (
                     <div className="text-red-600">{formik.errors.price}</div>
@@ -152,7 +202,12 @@ export default function () {
                 </div>
 
                 <div>
-                  <label htmlFor="image">Upload Image:</label>
+                  <label
+                    className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
+                    htmlFor="image"
+                  >
+                    Upload Image:
+                  </label>
                   <input
                     type="file"
                     id="image"
@@ -162,22 +217,40 @@ export default function () {
                     }}
                     onBlur={formik.handleBlur}
                     multiple
+                    className={`w-full px-3 py-2 border rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
                   />
-                  <span className="grid justify-center items-center grid-flow-col gap-x-2">
+                  <span className="mt-4 grid justify-center items-center grid-flow-col gap-x-2">
                     {formik.values.image && (
                       <ImagePreview images={Array.from(formik.values.image)} />
                     )}
                   </span>
                 </div>
 
-                <button type="submit" disabled={!formik.isValid}>
-                  Submit
-                </button>
+                <span className="mt-4 grid grid-flow-col gap-x-4">
+                  <button
+                    type="submit"
+                    disabled={!formik.isValid}
+                    className={`w-full bg-green-500 text-white font-bold py-2 px-4 rounded ${
+                      formik.isValid
+                        ? "hover:bg-green-700"
+                        : "cursor-not-allowed opacity-50"
+                    }`}
+                  >
+                    Submit
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => navigate(-1)}
+                    className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded cursor-pointer"
+                  >
+                    Go Back
+                  </button>
+                </span>
               </section>
             </form>
-          </main>
+          </div>
         </>
       )}
-    </>
+    </div>
   );
 }

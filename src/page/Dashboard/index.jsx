@@ -8,8 +8,8 @@ import TotalProfitPerYear from "./TotalProfitPerYear";
 export default function () {
   return (
     <>
-      <div className="grid px-10 justify-center items-center h-[1500px]">
-        <div className="grid grid-cols-2">
+      <div className="grid px-10 justify-center items-center h-full dark:bg-dark-default py-10 ">
+        <div className="grid justify-center items-center grid-cols-2">
           <AllUserProduct />
           <GetUsers />
         </div>

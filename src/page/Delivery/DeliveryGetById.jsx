@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { TAGS } from "@/constants";
 import moment from "moment";
 
-export default function UserDetails() {
+export default function () {
   const { id } = useParams();
   const { data, isLoading } = useGetDeliveriesByIdQuery(id, {
     populate: TAGS.PRODUCT,
@@ -28,16 +28,26 @@ export default function UserDetails() {
           <RingLoader color="#4F6C42" loading={true} size={50} />
         </div>
       ) : (
-        <main className="grid grid-flow-col gap-x-10 justify-center items-center h-screen">
-          <div key={_id}>
-            <h1>{_id}</h1>
-            <h1>{company_name}</h1>
-            <h1>{formattedDate}</h1>
-            <h1>{price}</h1>
-            <h1>{status}</h1>
-            <h1>{quantity}</h1>
-            <h1>{product?.product_name}</h1>
-            <button onClick={goBack}>Go Back</button>
+        <main className="flex items-center justify-center h-screen">
+          <div
+            key={_id}
+            className="bg-dark-default text-light-default dark:bg-light-default dark:text-dark-default p-6 rounded-md shadow-md w-96"
+          >
+            <h1 className="text-3xl font-bold mb-4">{company_name}</h1>
+            <p className="text-sm mb-2">Delivery ID: {_id}</p>
+            <p className="text-sm mb-2">Date: {formattedDate}</p>
+            <p className="text-sm mb-2">Price: ₱{price}</p>
+            <p className="text-sm mb-2">Status: {status}</p>
+            <p className="text-sm mb-2">Quantity: {quantity}</p>
+            <p className="text-sm mb-2">Product: {product?.product_name}</p>
+            <div className="mt-4">
+              <button
+                onClick={goBack}
+                className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded cursor-pointer hover:bg-blue-700"
+              >
+                Go Back
+              </button>
+            </div>
           </div>
         </main>
       )}

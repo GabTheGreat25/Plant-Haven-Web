@@ -59,12 +59,18 @@ export default function () {
     navigate("commentAll");
   };
 
+  const home = () => {
+    navigate("/employee");
+  };
+
   return (
     <>
       <div className="navbar">
         <div className="flex-1">
-          <span className="grid items-end justify-start">
-            <h1 className="text-xl font-semibold">Plant Haven</h1>
+          <span className="grid items-end justify-start" onClick={home}>
+            <button className="text-xl normal-case btn btn-ghost hover:bg-dark-default hover:text-light-default hover:dark:bg-light-default hover:dark:text-dark-default">
+              Plant Haven
+            </button>
           </span>
         </div>
         <div className="dropdown dropdown-end">

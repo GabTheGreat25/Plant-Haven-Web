@@ -51,18 +51,23 @@ export default function () {
     },
   });
   return (
-    <>
-      {isLoading  ? (
+    <div className={"min-h-screen flex items-center justify-center"}>
+      {isLoading ? (
         <div className="loader">
           <RingLoader color="#4F6C42" loading={true} size={50} />
         </div>
       ) : (
         <>
-          <main className="grid justify-center items-center h-screen">
+          <div className="max-w-md w-full p-8 rounded shadow-xl bg-dark-default dark:bg-light-default">
             <form onSubmit={formik.handleSubmit}>
-              <section className="grid justify-center items-center text-center">
+              <section className="grid justify-center items-center">
                 <div>
-                  <label htmlFor="date">Date:</label>
+                  <label
+                    className={`block text-light-default dark:text-dark-default text-sm font-bold mb-2`}
+                    htmlFor="date"
+                  >
+                    Date:
+                  </label>
                   <input
                     type="date"
                     id="date"
@@ -70,6 +75,11 @@ export default function () {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.date}
+                    className={`w-full mb-4 px-3 py-2 border ${
+                      formik.touched.date && formik.errors.date
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    } rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
                   />
                   {formik.touched.date && formik.errors.date && (
                     <div className="text-red-600">{formik.errors.date}</div>
@@ -77,13 +87,23 @@ export default function () {
                 </div>
 
                 <div>
-                  <label htmlFor="status">Status:</label>
+                  <label
+                    className={`block text-light-default dark:text-dark-default text-sm font-bold mb-2`}
+                    htmlFor="status"
+                  >
+                    Status:
+                  </label>
                   <select
                     id="status"
                     name="status"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.status}
+                    className={`w-full mb-4 px-3 py-2 border ${
+                      formik.touched.status && formik.errors.status
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    } rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
                   >
                     {STATUS.map((status) => (
                       <option key={status.value} value={status.value}>
@@ -96,14 +116,31 @@ export default function () {
                   )}
                 </div>
 
-                <button type="submit" disabled={!formik.isValid}>
-                  Submit
-                </button>
+                <span className="mt-4 grid grid-flow-col gap-x-4">
+                  <button
+                    type="submit"
+                    disabled={!formik.isValid}
+                    className={`w-full bg-green-500 text-white font-bold py-2 px-4 rounded ${
+                      formik.isValid
+                        ? "hover:bg-green-700"
+                        : "cursor-not-allowed opacity-50"
+                    }`}
+                  >
+                    Submit
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => navigate(-1)}
+                    className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded cursor-pointer"
+                  >
+                    Go Back
+                  </button>
+                </span>
               </section>
             </form>
-          </main>
+          </div>
         </>
       )}
-    </>
+    </div>
   );
 }

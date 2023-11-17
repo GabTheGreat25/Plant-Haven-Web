@@ -54,133 +54,217 @@ export default function () {
   });
 
   return (
-    <>
+    <div className={"min-h-screen flex items-center justify-center"}>
       {isLoading || productsLoading ? (
         <div className="loader">
           <RingLoader color="#4F6C42" loading={true} size={50} />
         </div>
       ) : (
-        <>
-          <main className="grid justify-center items-center h-screen">
-            <form onSubmit={formik.handleSubmit}>
-              <section className="grid justify-center items-center text-center">
-                <div>
-                  <label htmlFor="company_name">Company Name:</label>
-                  <input
-                    type="text"
-                    id="company_name"
-                    name="company_name"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.company_name}
-                  />
-                  {formik.touched.company_name &&
-                    formik.errors.company_name && (
-                      <div className="text-red-600">
-                        {formik.errors.company_name}
-                      </div>
-                    )}
-                </div>
-                <div>
-                  <label htmlFor="date">Date:</label>
-                  <input
-                    type="date"
-                    id="date"
-                    name="date"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.date}
-                  />
-                  {formik.touched.date && formik.errors.date && (
-                    <div className="text-red-600">{formik.errors.date}</div>
-                  )}
-                </div>
-                <div>
-                  <label htmlFor="price">Price:</label>
-                  <input
-                    type="number"
-                    id="price"
-                    name="price"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.price}
-                    min="1"
-                    max="10000"
-                  />
-                  {formik.touched.price && formik.errors.price && (
-                    <div className="text-red-600">{formik.errors.price}</div>
-                  )}
-                </div>
-                <div>
-                  <label htmlFor="status">Status:</label>
-                  <select
-                    id="status"
-                    name="status"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.status}
-                  >
-                    {STATUS.map((status) => (
-                      <option key={status.value} value={status.value}>
-                        {status.label}
+        <div className="max-w-md w-full p-8 rounded shadow-xl bg-dark-default dark:bg-light-default">
+          <form onSubmit={formik.handleSubmit}>
+            <div className="mb-4">
+              <label
+                htmlFor="company_name"
+                className={`block text-light-default dark:text-dark-default text-sm font-bold mb-2`}
+              >
+                Company Name:
+              </label>
+              <input
+                type="text"
+                id="company_name"
+                name="company_name"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.company_name}
+                className={`w-full px-3 py-2 border ${
+                  formik.touched.company_name && formik.errors.company_name
+                    ? "border-red-500"
+                    : "border-gray-300"
+                } rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
+              />
+              {formik.touched.company_name && formik.errors.company_name && (
+                <p className="text-red-500 text-xs italic">
+                  {formik.errors.company_name}
+                </p>
+              )}
+            </div>
+
+            <div className="mb-4">
+              <label
+                htmlFor="date"
+                className={`block text-light-default dark:text-dark-default text-sm font-bold mb-2`}
+              >
+                Date:
+              </label>
+              <input
+                type="date"
+                id="date"
+                name="date"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.date}
+                className={`w-full px-3 py-2 border ${
+                  formik.touched.date && formik.errors.date
+                    ? "border-red-500"
+                    : "border-gray-300"
+                } rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
+              />
+              {formik.touched.date && formik.errors.date && (
+                <p className="text-red-500 text-xs italic">
+                  {formik.errors.date}
+                </p>
+              )}
+            </div>
+
+            <div className="mb-4">
+              <label
+                htmlFor="price"
+                className={`block text-light-default dark:text-dark-default text-sm font-bold mb-2`}
+              >
+                Price:
+              </label>
+              <input
+                type="number"
+                id="price"
+                name="price"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.price}
+                min="1"
+                max="10000"
+                className={`w-full px-3 py-2 border ${
+                  formik.touched.price && formik.errors.price
+                    ? "border-red-500"
+                    : "border-gray-300"
+                } rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
+              />
+              {formik.touched.price && formik.errors.price && (
+                <p className="text-red-500 text-xs italic">
+                  {formik.errors.price}
+                </p>
+              )}
+            </div>
+
+            <div className="mb-4">
+              <label
+                htmlFor="status"
+                className={`block text-light-default dark:text-dark-default text-sm font-bold mb-2`}
+              >
+                Status:
+              </label>
+              <select
+                id="status"
+                name="status"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.status}
+                className={`w-full px-3 py-2 border ${
+                  formik.touched.status && formik.errors.status
+                    ? "border-red-500"
+                    : "border-gray-300"
+                } rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
+              >
+                {STATUS.map((status) => (
+                  <option key={status.value} value={status.value}>
+                    {status.label}
+                  </option>
+                ))}
+              </select>
+              {formik.touched.status && formik.errors.status && (
+                <div className="text-red-600">{formik.errors.status}</div>
+              )}
+            </div>
+
+            <div className="mb-4">
+              <label
+                htmlFor="quantity"
+                className={`block text-light-default dark:text-dark-default text-sm font-bold mb-2`}
+              >
+                Quantity:
+              </label>
+              <input
+                type="number"
+                id="quantity"
+                name="quantity"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.quantity}
+                min="1"
+                max="10000"
+                className={`w-full px-3 py-2 border ${
+                  formik.touched.quantity && formik.errors.quantity
+                    ? "border-red-500"
+                    : "border-gray-300"
+                } rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
+              />
+              {formik.touched.quantity && formik.errors.quantity && (
+                <p className="text-red-500 text-xs italic">
+                  {formik.errors.quantity}
+                </p>
+              )}
+            </div>
+
+            <div className="mb-4">
+              <label
+                htmlFor="product"
+                className={`block text-light-default dark:text-dark-default text-sm font-bold mb-2`}
+              >
+                Select Product:
+              </label>
+              <select
+                id="product"
+                name="product"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.product}
+                className={`w-full px-3 py-2 border ${
+                  formik.touched.product && formik.errors.product
+                    ? "border-red-500"
+                    : "border-gray-300"
+                } rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
+              >
+                {products?.details?.length > 0 ? (
+                  products?.details?.map((product) => {
+                    return (
+                      <option key={product?._id} value={product?._id}>
+                        {product?.product_name}
                       </option>
-                    ))}
-                  </select>
-                  {formik.touched.status && formik.errors.status && (
-                    <div className="text-red-600">{formik.errors.status}</div>
-                  )}
-                </div>
-                <div>
-                  <label htmlFor="quantity">Quantity:</label>
-                  <input
-                    type="number"
-                    id="quantity"
-                    name="quantity"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.quantity}
-                    min="1"
-                    max="10000"
-                  />
-                  {formik.touched.quantity && formik.errors.quantity && (
-                    <div className="text-red-600">{formik.errors.quantity}</div>
-                  )}
-                </div>
+                    );
+                  })
+                ) : (
+                  <option disabled>Loading products...</option>
+                )}
+              </select>
+              {formik.touched.product && formik.errors.product && (
+                <p className="text-red-500 text-xs italic">
+                  {formik.errors.product}
+                </p>
+              )}
+            </div>
 
-                <div>
-                  <label htmlFor="product">Select Product:</label>
-                  <select
-                    id="product"
-                    name="product"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.product}
-                  >
-                    {products?.details?.length > 0 ? (
-                      products?.details?.map((product) => {
-                        return (
-                          <option key={product?._id} value={product?._id}>
-                            {product?.product_name}
-                          </option>
-                        );
-                      })
-                    ) : (
-                      <option disabled>Loading products...</option>
-                    )}
-                  </select>
-                  {formik.touched.product && formik.errors.product && (
-                    <div className="text-red-600">{formik.errors.product}</div>
-                  )}
-                </div>
-
-                <button type="submit" disabled={!formik.isValid}>
-                  Submit
-                </button>
-              </section>
-            </form>
-          </main>
-        </>
+            <span className="mt-4 grid grid-flow-col gap-x-4">
+              <button
+                type="submit"
+                disabled={!formik.isValid}
+                className={`w-full bg-green-500 text-white font-bold py-2 px-4 rounded ${
+                  formik.isValid
+                    ? "hover:bg-green-700"
+                    : "cursor-not-allowed opacity-50"
+                }`}
+              >
+                Submit
+              </button>
+              <button
+                type="button"
+                onClick={() => navigate(-1)}
+                className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded cursor-pointer"
+              >
+                Go Back
+              </button>
+            </span>
+          </form>
+        </div>
       )}
-    </>
+    </div>
   );
 }

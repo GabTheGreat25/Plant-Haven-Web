@@ -1,8 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  useUpdateCommentMutation,
-  useGetCommentByIdQuery,
-} from "@api";
+import { useUpdateCommentMutation, useGetCommentByIdQuery } from "@api";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -42,10 +39,7 @@ export default function () {
             navigate("/customer/comment");
             toast.success(`${response?.data?.message}`, toastProps);
           } else {
-            toast.error(
-              `${response?.error?.data?.error?.message}`,
-              toastProps
-            );
+            toast.error(`${response?.error?.data?.error?.message}`, toastProps);
           }
         }
       );
@@ -53,22 +47,29 @@ export default function () {
   });
 
   return (
-    <>
+    <div className="min-h-screen flex items-center justify-center">
       {isLoading ? (
         <div className="loader">
           <RingLoader color="#4F6C42" loading={true} size={50} />
         </div>
       ) : (
         <>
-          <main className="grid justify-center items-center h-screen">
-            <form
-              onSubmit={formik.handleSubmit}
-              encType="multipart/form-data"
-            >
+          <div className="max-w-md w-full p-8 rounded shadow-xl bg-dark-default dark:bg-light-default">
+            <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
               <section className="grid justify-center items-center text-center">
                 <div>
-                  <label htmlFor="text">Text:</label>
+                  <label
+                    className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
+                    htmlFor="text"
+                  >
+                    Text:
+                  </label>
                   <input
+                    className={`w-full px-3 py-2 border ${
+                      formik.touched.text && formik.errors.text
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    } rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
                     type="text"
                     id="text"
                     name="text"
@@ -81,8 +82,18 @@ export default function () {
                   )}
                 </div>
                 <div>
-                  <label htmlFor="ratings">Ratings:</label>
+                  <label
+                    className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
+                    htmlFor="ratings"
+                  >
+                    Ratings:
+                  </label>
                   <input
+                    className={`w-full px-3 py-2 border ${
+                      formik.touched.ratings && formik.errors.ratings
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    } rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
                     type="text"
                     id="ratings"
                     name="ratings"
@@ -98,16 +109,19 @@ export default function () {
                 </div>
 
                 <div>
-                  <label htmlFor="image">Upload Image:</label>
+                  <label
+                    className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
+                    htmlFor="image"
+                  >
+                    Upload Image:
+                  </label>
                   <input
+                    className={`w-full px-3 py-2 border rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
                     type="file"
                     id="image"
                     name="image"
                     onChange={(event) => {
-                      formik.setFieldValue(
-                        "image",
-                        event.currentTarget.files
-                      );
+                      formik.setFieldValue("image", event.currentTarget.files);
                     }}
                     onBlur={formik.handleBlur}
                     multiple
@@ -126,14 +140,31 @@ export default function () {
                   </span>
                 </div>
 
-                <button type="submit" disabled={!formik.isValid}>
-                  Submit
-                </button>
+                <span className="mt-4 grid grid-flow-col gap-x-4">
+                  <button
+                    type="submit"
+                    disabled={!formik.isValid}
+                    className={`w-full bg-green-500 text-white font-bold py-2 px-4 rounded ${
+                      formik.isValid
+                        ? "hover:bg-green-700"
+                        : "cursor-not-allowed opacity-50"
+                    }`}
+                  >
+                    Submit
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => navigate(-1)}
+                    className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded cursor-pointer"
+                  >
+                    Go Back
+                  </button>
+                </span>
               </section>
             </form>
-          </main>
+          </div>
         </>
       )}
-    </>
+    </div>
   );
 }

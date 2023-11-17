@@ -15,7 +15,7 @@ import {
   CustomerLayout,
 } from "@/layouts";
 import {
-  Test,
+  CustomerWelcome,
   LoginUser,
   CustomerRegister,
   EmployeeRegister,
@@ -366,7 +366,7 @@ const router = createBrowserRouter(
           index
           element={
             <ProtectedRoute userRoles={["Customer"]}>
-              <Test />
+              <CustomerWelcome />
             </ProtectedRoute>
           }
         />

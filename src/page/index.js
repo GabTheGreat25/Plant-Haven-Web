@@ -1,5 +1,5 @@
 import LoginUser from "./LoginUser";
-import Test from "./Test";
+import CustomerWelcome from "./CustomerWelcome";
 import CustomerRegister from "./CustomerRegister";
 import EmployeeRegister from "./EmployeeRegister";
 import User from "./User";
@@ -34,7 +34,7 @@ import Dashboard from "./Dashboard";
 
 export {
     LoginUser,
-    Test,
+    CustomerWelcome,
     CustomerRegister,
     EmployeeRegister,
     UpdateUserInfo,

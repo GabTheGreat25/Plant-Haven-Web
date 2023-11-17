@@ -17,10 +17,12 @@ export default function () {
   return (
     <>
       {isLoading ? (
-        <RingLoader color="#2c3e50" loading={true} size={50} />
+        <div className="loader">
+          <RingLoader color="#4F6C42" loading={true} size={50} />
+        </div>
       ) : !data ? null : (
         <>
-          <div className="grid grid-flow-col gap-x-4">
+          <div className="grid grid-flow-row gap-x-4">
             <ListData
               title="Users"
               data={usersCount}

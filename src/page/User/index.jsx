@@ -6,6 +6,7 @@ import { RingLoader } from "react-spinners";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addDeletedItemId, getDeletedItemIds } from "../.././utils/DeleteItem";
+import DataTable from "react-data-table-component";
 
 export default function () {
   const navigate = useNavigate();
@@ -37,6 +38,26 @@ export default function () {
     }
   };
 
+  const columns = [
+    { name: "ID", selector: "_id", sortable: true },
+    { name: "Name", selector: "name", sortable: true },
+    { name: "Email", selector: "email", sortable: true },
+    { name: "Roles", selector: "roles", sortable: true },
+    {
+      name: "Actions",
+      cell: (row) => (
+        <div className="flex items-center space-x-4">
+          <button
+            className="text-red-500 hover:underline"
+            onClick={() => handleDelete(row._id)}
+          >
+            Delete
+          </button>
+        </div>
+      ),
+    },
+  ];
+
   return (
     <>
       {isLoading || isDeleting ? (
@@ -44,42 +65,17 @@ export default function () {
           <RingLoader color="#4F6C42" loading={true} size={50} />
         </div>
       ) : (
-        <main className="grid grid-flow-col gap-x-10 justify-center items-center h-screen">
-          {filteredUser?.length ? (
-            filteredUser.map((item) => (
-              <div key={item?._id}>
-                <a
-                  className="cursor-pointer"
-                  onClick={() => navigate(`${item?._id}`)}
-                >
-                  <h1>{item?._id}</h1>
-                </a>
-                <h1>{item?.name}</h1>
-                <h1>{item?.email}</h1>
-                <h1>{item?.roles}</h1>
-                {item.image?.map((image) => (
-                  <img
-                    width={75}
-                    height={60}
-                    src={image?.url}
-                    alt={image?.originalname}
-                    key={image?.public_id}
-                  />
-                ))}
-                <span className="grid grid-flow-col gap-x-4 justify-start">
-                  <button onClick={() => navigate(`edit/${item?._id}`)}>
-                    Edit
-                  </button>
-                  <button onClick={() => handleDelete(item?._id)}>
-                    Delete
-                  </button>
-                </span>
-              </div>
-            ))
-          ) : (
-            <p>No data available.</p>
-          )}
-        </main>
+        <div className="container mx-auto my-8 p-8 max-w-screen-xl rounded-lg shadow-2xl">
+          <DataTable
+            title="Users"
+            columns={columns}
+            data={filteredUser}
+            pagination
+            highlightOnHover
+            pointerOnHover
+            onRowClicked={(row) => navigate(`${row._id}`)}
+          />
+        </div>
       )}
     </>
   );

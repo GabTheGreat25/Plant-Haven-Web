@@ -11,6 +11,7 @@ import { TAGS } from "@/constants";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { addDeletedItemId, getDeletedItemIds } from "../.././utils/DeleteItem";
+import DataTable from "react-data-table-component";
 
 export default function () {
   const navigate = useNavigate();
@@ -56,48 +57,54 @@ export default function () {
       }
     }
   };
+
+  const columns = [
+    { name: "ID", selector: "_id", sortable: true },
+    { name: "Ratings", selector: "ratings", sortable: true },
+    { name: "Text", selector: "text", sortable: true },
+    {
+      name: "Actions",
+      cell: (row) => (
+        <div className="flex items-center space-x-4">
+          <button
+            className="text-blue-500 hover:underline"
+            onClick={() => navigate(`/customer/comment/edit/${row._id}`)}
+          >
+            Edit
+          </button>
+          <button
+            className="text-red-500 hover:underline"
+            onClick={() => handleDelete(row._id)}
+          >
+            Delete
+          </button>
+        </div>
+      ),
+    },
+  ];
+
   return (
-    <>
+    <div className="container mx-auto my-8 p-8 max-w-screen-xl rounded-lg shadow-2xl">
       {isLoading || transactionIsLoading || isDeleting ? (
         <div className="loader">
           <RingLoader color="#4F6C42" loading={true} size={50} />
         </div>
       ) : (
-        <main className="grid grid-flow-col gap-x-10 justify-center items-center h-screen">
+        <div className="mt-8">
           {filteredComments?.length ? (
-            filteredComments?.map((item, index) => (
-              <div key={item?._id}>
-                <h1>{item?._id}</h1>
-                <h1>{item?.ratings}</h1>
-                <h1>{item?.text}</h1>
-                {item?.image?.map((image) => (
-                  <img
-                    width={75}
-                    height={60}
-                    src={image?.url}
-                    alt={image?.originalname}
-                    key={image?.public_id}
-                  />
-                ))}
-                <span className="grid grid-flow-col gap-x-4 justify-start">
-                  <button
-                    onClick={() =>
-                      navigate(`/customer/comment/edit/${item?._id}`)
-                    }
-                  >
-                    Edit
-                  </button>
-                  <button onClick={() => handleDelete(item?._id)}>
-                    Delete
-                  </button>
-                </span>
-              </div>
-            ))
+            <DataTable
+              title="Comments"
+              columns={columns}
+              data={filteredComments}
+              pagination
+              highlightOnHover
+              pointerOnHover
+            />
           ) : (
             <p>No data available.</p>
           )}
-        </main>
+        </div>
       )}
-    </>
+    </div>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import EmptyCartImage from "@assets/empty-cart.png";
 
-export default function CartPreview({
+export default function ({
   cartItems,
   onRemoveFromCart,
   onConfirmPurchase,
@@ -16,21 +16,21 @@ export default function CartPreview({
   };
 
   return (
-    <div className="p-4">
-      <h3 className="text-center text-lg mt-4">Cart Preview</h3>
+    <div className="p-4 bg-white rounded-lg shadow-md">
+      <h3 className="text-center text-3xl font-semibold mb-6">Cart Preview</h3>
       {cartItems && cartItems.length > 0 ? (
         cartItems.map((item) => (
           <div
             key={item?._id}
-            className="flex justify-between items-center my-4"
+            className="flex justify-between items-center my-4 p-4 border-b"
           >
-            <div className="mr-4">
-              <div className="font-bold">{item.name}</div>
-              <div className="text-gray-500">{item.description}</div>
-              <div className="text-xl mt-2">{item.price} PHP</div>
+            <div className="flex flex-col">
+              <div className="font-bold text-lg mb-1">{item.name}</div>
+              <div className="mb-2">{item.description}</div>
+              <div className="text-xl">{item.price} PHP</div>
               <div className="mt-2">
                 <button
-                  className="text-red-500 border-none bg-none"
+                  className="text-red-500 hover:underline"
                   onClick={() => onRemoveFromCart(item)}
                 >
                   Remove
@@ -43,25 +43,26 @@ export default function CartPreview({
                   key={index}
                   src={imageItem?.url}
                   alt={imageItem?.alt}
-                  className="w-20 h-20 m-1"
+                  className="w-20 h-20 m-1 rounded"
                 />
               ))}
             </div>
           </div>
         ))
       ) : (
-        <div className="mt-14">
+        <div className="flex flex-col items-center mt-14">
           <img
             src={EmptyCartImage}
             alt="Empty Cart"
-            className="w-48 h-48 mx-auto"
+            className="w-48 h-48 mx-auto mb-4"
           />
+          <p className="text-lg">Your cart is empty.</p>
         </div>
       )}
       <div className="flex justify-center mt-4">
         {cartItems && cartItems.length > 0 ? (
           <button
-            className="bg-blue-500 rounded-full text-white text-lg px-6 py-2"
+            className="bg-blue-500 rounded-full text-white text-lg px-6 py-2 hover:bg-blue-600"
             onClick={() => setModalOpen(true)}
           >
             Confirm Purchase
@@ -71,14 +72,14 @@ export default function CartPreview({
 
       {modalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-4 rounded-md max-w-md">
+          <div className="bg-dark-default text-light-default dark:bg-light-default dark:text-dark-default p-4 rounded-md max-w-md">
             <h2 className="text-2xl font-bold mb-2">Confirm Purchase</h2>
             <p className="text-lg mb-4">
               Are you sure you want to purchase the selected items?
             </p>
             <div className="flex justify-end">
               <button
-                className="text-red-500 mr-2"
+                className="text-red-500 hover:underline mr-2"
                 onClick={() => {
                   setModalOpen(false);
                   onClose();
@@ -87,7 +88,7 @@ export default function CartPreview({
                 Cancel
               </button>
               <button
-                className="bg-blue-500 text-white"
+                className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600"
                 onClick={handleConfirmPurchase}
               >
                 Confirm
