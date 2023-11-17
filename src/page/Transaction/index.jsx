@@ -108,6 +108,8 @@ export default function (props) {
     navigate("/customer/transactionHistory");
 
     setIsCartPreviewOpen(false);
+
+    window.open(`https://mailtrap.io/inboxes`, "_blank");
   };
 
   const handleToggleCartPreview = () => {

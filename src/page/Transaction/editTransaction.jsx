@@ -42,6 +42,7 @@ export default function () {
             } else if (userRoles.includes("Employee")) {
               navigate("/employee/transactionAll");
             }
+            window.open(`https://mailtrap.io/inboxes`, "_blank");
             toast.success(`${response?.data?.message}`, toastProps);
           } else {
             toast.error(`${response?.error?.data?.error?.message}`, toastProps);
