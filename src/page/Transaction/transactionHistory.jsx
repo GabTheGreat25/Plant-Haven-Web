@@ -6,8 +6,10 @@ import { RingLoader } from "react-spinners";
 import DataTable from "react-data-table-component";
 import { useSelector } from "react-redux";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
 
 export default function () {
+  const navigate = useNavigate();
   const { data: transactions, isLoading: transactionsLoading } =
     useGetTransactionsQuery({
       populate: ["user", "product"],
@@ -80,16 +82,19 @@ export default function () {
           {comments?.details?.some(
             (comment) => comment?.transaction?._id === row?._id
           ) ? (
-            <p>This transaction already has a comment.</p>
+            <p className="text-red-600">This transaction already has a comment.</p>
           ) : (
             <button
+            className="text-green-500 hover:underline"
               onClick={() =>
                 isTransactionCompleted(row)
-                  ? toast.error(
+                  ? navigate("/customer/comment/create", {
+                      state: { transactionId: row?._id },
+                    })
+                  : toast.error(
                       "Transaction is pending. Cannot add a comment.",
                       toastProps
                     )
-                  : toast.success("Comment added successfully.", toastProps)
               }
             >
               Add Comment
