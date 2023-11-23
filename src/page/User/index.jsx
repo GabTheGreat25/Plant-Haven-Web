@@ -44,9 +44,24 @@ export default function () {
     { name: "Email", selector: "email", sortable: true },
     { name: "Roles", selector: "roles", sortable: true },
     {
-      name: "Actions",
+      name: "Images",
       cell: (row) => (
         <div className="flex items-center space-x-4">
+          {row.image.map((image) => (
+            <img
+              key={image.public_id}
+              src={image.url}
+              alt={image.originalname}
+              className="rounded-full h-10 w-10 object-cover"
+            />
+          ))}
+        </div>
+      ),
+    },
+    {
+      name: "Actions",
+      cell: (row) => (
+        <div className="mx-4 flex items-center space-x-4">
           <button
             className="text-red-500 hover:underline"
             onClick={() => handleDelete(row._id)}

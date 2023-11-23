@@ -51,10 +51,8 @@ export default function ProductsList() {
     { name: "ID", selector: "_id", sortable: true },
     { name: "Product Name", selector: "product_name", sortable: true },
     { name: "Price", selector: "price", sortable: true },
-    { name: "Status", selector: "status", sortable: true },
     { name: "Class", selector: "class", sortable: true },
     { name: "Variant", selector: "variant", sortable: true },
-    { name: "Quantity", selector: "quantity", sortable: true },
     { name: "Type", selector: "type", sortable: true },
     {
       name: "User",
@@ -62,9 +60,24 @@ export default function ProductsList() {
       sortable: true,
     },
     {
-      name: "Actions",
+      name: "Images",
       cell: (row) => (
         <div className="flex items-center space-x-4">
+          {row.image.map((image) => (
+            <img
+              key={image.public_id}
+              src={image.url}
+              alt={image.originalname}
+              className="rounded-full h-10 w-10 object-cover"
+            />
+          ))}
+        </div>
+      ),
+    },
+    {
+      name: "Actions",
+      cell: (row) => (
+        <div className="mx-[1px] flex items-center space-x-4">
           <button
             className="text-blue-500 hover:underline"
             onClick={() =>

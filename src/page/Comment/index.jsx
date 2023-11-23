@@ -63,9 +63,24 @@ export default function () {
     { name: "Ratings", selector: "ratings", sortable: true },
     { name: "Text", selector: "text", sortable: true },
     {
-      name: "Actions",
+      name: "Images",
       cell: (row) => (
         <div className="flex items-center space-x-4">
+          {row.image.map((image) => (
+            <img
+              key={image.public_id}
+              src={image.url}
+              alt={image.originalname}
+              className="rounded-full h-10 w-10 object-cover"
+            />
+          ))}
+        </div>
+      ),
+    },
+    {
+      name: "Actions",
+      cell: (row) => (
+        <div className="mx-[1px] flex items-center space-x-4">
           <button
             className="text-blue-500 hover:underline"
             onClick={() => navigate(`/customer/comment/edit/${row._id}`)}

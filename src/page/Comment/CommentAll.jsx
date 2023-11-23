@@ -42,9 +42,24 @@ export default function () {
     { name: "Text", selector: "text", sortable: true },
     { name: "Status", selector: "transaction.status", sortable: true },
     {
-      name: "Actions",
+      name: "Images",
       cell: (row) => (
         <div className="flex items-center space-x-4">
+          {row.image.map((image) => (
+            <img
+              key={image.public_id}
+              src={image.url}
+              alt={image.originalname}
+              className="rounded-full h-10 w-10 object-cover"
+            />
+          ))}
+        </div>
+      ),
+    },
+    {
+      name: "Actions",
+      cell: (row) => (
+        <div className="mx-4 flex items-center space-x-4">
           {isAdmin ? (
             <>
               <button
